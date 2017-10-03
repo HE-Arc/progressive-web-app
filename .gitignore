@@ -1,0 +1,20 @@
+
+# Created by https://www.gitignore.io/api/web
+
+### Web ###
+*.asp
+*.cer
+*.csr
+*.css
+*.htm
+*.html
+*.js
+*.jsp
+*.php
+*.rss
+*.xhtml
+
+### Docs ###
+*.pdf
+
+# End of https://www.gitignore.io/api/web
