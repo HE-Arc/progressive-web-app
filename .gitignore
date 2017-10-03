@@ -1,20 +1,57 @@
+#From : https://gist.github.com/salcode/10017553
 
-# Created by https://www.gitignore.io/api/web
+# ignore all files starting with . or ~
+.*
+~*
 
-### Web ###
-*.asp
-*.cer
-*.csr
-*.css
-*.htm
-*.html
-*.js
-*.jsp
-*.php
-*.rss
-*.xhtml
+# ignore node/grunt dependency directories
+node_modules/
 
-### Docs ###
-*.pdf
+# ignore composer vendor directory
+/vendor
 
-# End of https://www.gitignore.io/api/web
+# ignore components loaded via Bower
+/bower_components
+
+# ignore jekyll build directory
+/_site
+
+# ignore OS generated files
+ehthumbs.db
+Thumbs.db
+
+# ignore Editor files
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+
+# ignore log files and databases
+*.log
+*.sql
+*.sqlite
+
+# ignore compiled files
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# ignore packaged files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# -------------------------
+# BEGIN Whitelisted Files
+# -------------------------
+ 
+# track these files, if they exist
+!.gitignore
+!.editorconfig
