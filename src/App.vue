@@ -7,17 +7,18 @@
                 <div class="mdl-layout-spacer"></div>
                 <!-- Navigation. We hide it in small screens. -->
                 <nav class="mdl-navigation">
-                    <a class="mdl-navigation__link" href=""><i class="material-icons">settings</i></a>
+                    <router-link class="mdl-navigation__link" to="/add"><i class="material-icons">add</i></router-link>
                     <a class="mdl-navigation__link" href=""><i class="material-icons">refresh</i></a>
-                    <a class="mdl-navigation__link" href=""><i class="material-icons">add</i></a>
+                    <router-link class="mdl-navigation__link" to="/settings"><i class="material-icons">settings</i></router-link>
                 </nav>
             </div>
         </header>
         <div class="mdl-layout__drawer">
             <span class="mdl-layout-title">NextStop</span>
             <nav class="mdl-navigation">
-                <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu">Home</router-link>
-                <router-link class="mdl-navigation__link" to="/add" @click.native="hideMenu">Add</router-link>
+                <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu"><i class="material-icons">home</i>  Home</router-link>
+                <router-link class="mdl-navigation__link" to="/add" @click.native="hideMenu"><i class="material-icons">add</i>  Add</router-link>
+                <router-link class="mdl-navigation__link" to="/settings" @click.native="hideMenu"><i class="material-icons">settings</i>  Settings</router-link>
             </nav>
         </div>
         <main class="mdl-layout__content">
