@@ -7,6 +7,8 @@
                 <div class="mdl-layout-spacer"></div>
                 <!-- Navigation. We hide it in small screens. -->
                 <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href=""><i class="material-icons">settings</i></a>
+                    <a class="mdl-navigation__link" href=""><i class="material-icons">refresh</i></a>
                     <a class="mdl-navigation__link" href=""><i class="material-icons">add</i></a>
                 </nav>
             </div>

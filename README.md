@@ -1,4 +1,4 @@
-# progressive-web-app
+# NextStop
 
 > PWA to be notified about trains
 
