@@ -1,6 +1,6 @@
 {
   "name": "NextStop",
-  "short_name": "A simple PWA project with trains",
+  "short_name": "NextStop",
   "icons": [
     {
       "src": "/static/img/icons/android-chrome-192x192.png",
