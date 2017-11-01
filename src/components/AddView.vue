@@ -49,9 +49,29 @@
                 </div>
             </div>
             <div class="mdl-cell mdl-cell--12-col">
-                <p>Choix de départ : <b>{{ location_from }}</b></p>
-                <p>Choix de départ : <b>{{ location_to }}</b></p>
-                <p>Choix de l'heure : <b>{{ time }}</b></p>
+                <div v-show="connections">
+                    <p>From : <b>{{ location_from }}</b></p>
+                    <p>To : <b>{{ location_to }}</b></p>
+                    <p>Time : <b>{{ time }}</b></p>
+                </div>
+
+                <table v-show="connections" id="connections_table" class="mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+                    <thead>
+                        <tr>
+                            <!-- <th>
+                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select" for="checkbox-all">
+                                    <input type="checkbox" id="checkbox-all" class="mdl-checkbox__input">
+                                </label>
+                            </th> -->
+                            <th class="mdl-data-table__cell--non-numeric">From</th>
+                            <th class="mdl-data-table__cell--non-numeric">Departure</th>
+                            <th class="mdl-data-table__cell--non-numeric">To</th>
+                            <th class="mdl-data-table__cell--non-numeric">Arrival</th>
+                            <th class="mdl-data-table__cell--non-numeric">Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
                 <pre v-if="preContent" :style="preStyle">
                     <b>Selected Data:</b>
                     {{ preContent }}
@@ -80,6 +100,7 @@ export default {
       location_to: '',
       time: '',
       preContent: '',
+      connections: '',
       preStyle: {
         background: '#f2f2f2',
         fontFamily: 'monospace',
@@ -91,32 +112,57 @@ export default {
   },
   mounted: function () {
     this.$nextTick(function () {
-      componentHandler.upgradeDom()
-      this.onReset()
       $('#location_from').after('<label class="mdl-textfield__label" for="location_from">From</label>')
       $('#location_to').after('<label class="mdl-textfield__label" for="location_to">To</label>')
       $('.autocomplete-input').attr('pattern', '[a-zA-ZñÑáéíóúüçÇ. -]+').after('<span class="mdl-textfield__error">Only letters, dashes and spaces are accepted.</span>')
       document.getElementById('location_from').focus()
       $('ul').css('z-index', '1000')
 
-      // TODO : Ajouter le pattern html5 et le span error
+      // TODO : A remplacer avec upgradeElementS(array)
+      componentHandler.upgradeElement($('#location_from').parent()[0])
+      componentHandler.upgradeElement($('#location_to').parent()[0])
+      componentHandler.upgradeElement($('#time').parent()[0])
+
+      this.onReset()
     })
   },
   // Définissez les méthodes de l'objet
   methods: {
     processJSON (json) {
-      this.preContent = json
       return json.stations
     },
     handleSelect (data) {
-      this.preContent = JSON.stringify(data, null, 4)
+
     },
     onSubmit () {
       this.location_from = $('#location_from').val()
       this.location_to = $('#location_to').val()
+
+      let self = this
+
+      $.get('http://transport.opendata.ch/v1/connections', {from: this.location_from, to: this.location_to, time: this.time}, function (data) {
+        self.preContent = JSON.stringify(data, null, 4)
+        self.connections = data
+        $(data.connections).each(function (i, connection) {
+          var line = $('<tr></tr>').attr('id', 'connection_' + i)
+          // var lblChk = $('<label></label>').addClass('mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select').attr('for', 'checkbox_' + i)
+          // var inputChk = $('<input />').addClass('mdl-checkbox__input').attr({type: 'checkbox', id: 'checkbox' + i})
+          // $(lblChk).append(inputChk)
+          // var checkbox = $('<td></td>').append(lblChk)
+          var from = $('<td></td>').text(self.location_from)
+          var to = $('<td></td>').text(self.location_to)
+          var departure = $('<td></td>').text(moment(connection.from.departure).format('HH:mm'))
+          var arrival = $('<td></td>').text(moment(connection.to.arrival).format('HH:mm'))
+          var duration = $('<td></td>').text(moment.utc(moment(connection.to.arrival).diff(moment(connection.from.departure))).format('HH:mm'))
+          $('#connections_table tbody').append(line)
+          $(line).append(from, departure, to, arrival, duration)
+        })
+        $('#connections_table td').addClass('mdl-data-table__cell--non-numeric')
+        componentHandler.upgradeElement($('#connections_table')[0])
+      })
     },
     onReset () {
-      // La réinitisalition marche pas tiptop
+      // TODO : La réinitisalition marche pas tiptop
       this.location_to = ''
       this.location_from = ''
       $('#location_to').val(' ')
@@ -132,6 +178,7 @@ export default {
 
   .toolbar-section {
       margin-top: 15px;
+      margin-bottom: 50px;
   }
 
   .center-items {
@@ -150,6 +197,11 @@ export default {
 
   .above-all{
     z-index: 1000;
+  }
+
+  #connections_table{
+    margin-top: 50px;
+    margin-bottom: 50px;
   }
 
 
