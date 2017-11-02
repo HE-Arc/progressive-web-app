@@ -4,7 +4,6 @@
         <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
             <div class="mdl-cell mdl-cell--12-col">
                 <h1>Add</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </div>
             <div class=" mdl-grid center-items">
                 <autocomplete
@@ -39,7 +38,7 @@
                     <span class="mdl-textfield__error">Only letters, dashes and spaces are accepted.</span>
                 </div> -->
                 <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" pattern="[0-9]{1,2}:[0-9]{2}" id="time" v-model="time">
+                    <input class="mdl-textfield__input" type="text" pattern="[0-9]{1,2}:[0-9]{2}" id="time" v-model="time"  @keyup.enter="onSubmit">
                     <label class="mdl-textfield__label" for="time">Time</label>
                     <span class="mdl-textfield__error">Use this format 9:12 or 21:14</span>
                 </div>
@@ -54,24 +53,25 @@
                     <p>To : <b>{{ location_to }}</b></p>
                     <p>Time : <b>{{ time }}</b></p>
                 </div>
-
-                <table v-show="connections" id="connections_table" class="mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
-                    <thead>
-                        <tr>
-                            <!-- <th>
-                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select" for="checkbox-all">
-                                    <input type="checkbox" id="checkbox-all" class="mdl-checkbox__input">
-                                </label>
-                            </th> -->
-                            <th class="mdl-data-table__cell--non-numeric">From</th>
-                            <th class="mdl-data-table__cell--non-numeric">Departure</th>
-                            <th class="mdl-data-table__cell--non-numeric">To</th>
-                            <th class="mdl-data-table__cell--non-numeric">Arrival</th>
-                            <th class="mdl-data-table__cell--non-numeric">Duration</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <div  v-show="connections" class="table-responsive">
+                    <table id="connections_table">
+                        <thead>
+                            <tr>
+                                <!-- <th>
+                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select" for="checkbox-all">
+                                        <input type="checkbox" id="checkbox-all" class="mdl-checkbox__input">
+                                    </label>
+                                </th> -->
+                                <th class="mdl-data-table__cell--non-numeric">From</th>
+                                <th class="mdl-data-table__cell--non-numeric">Departure</th>
+                                <th class="mdl-data-table__cell--non-numeric">To</th>
+                                <th class="mdl-data-table__cell--non-numeric">Arrival</th>
+                                <th class="mdl-data-table__cell--non-numeric">Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
                 <pre v-if="preContent" :style="preStyle">
                     <b>Selected Data:</b>
                     {{ preContent }}
@@ -106,12 +106,16 @@ export default {
         fontFamily: 'monospace',
         fontSize: '1em',
         display: 'inline-block',
-        padding: '15px 7px'
+        padding: '15px 7px',
+        width: '100%'
       }
     }
   },
   mounted: function () {
     this.$nextTick(function () {
+      // var elements = $('#location_from')[0]
+      // componentHandler.downgradeElements(elements)
+
       $('#location_from').after('<label class="mdl-textfield__label" for="location_from">From</label>')
       $('#location_to').after('<label class="mdl-textfield__label" for="location_to">To</label>')
       $('.autocomplete-input').attr('pattern', '[a-zA-ZñÑáéíóúüçÇ. -]+').after('<span class="mdl-textfield__error">Only letters, dashes and spaces are accepted.</span>')
@@ -158,6 +162,7 @@ export default {
           $(line).append(from, departure, to, arrival, duration)
         })
         $('#connections_table td').addClass('mdl-data-table__cell--non-numeric')
+        $('#connections_table').addClass('mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp')
         componentHandler.upgradeElement($('#connections_table')[0])
       })
     },
@@ -202,8 +207,58 @@ export default {
   #connections_table{
     margin-top: 50px;
     margin-bottom: 50px;
+    width: 100%;
   }
 
+  .table-responsive {
+      min-height: .01%;
+      overflow-x: auto;
+  }
+  @media screen and (max-width: 767px) {
+      .table-responsive {
+          width: 100%;
+          margin-bottom: 15px;
+          overflow-y: hidden;
+          -ms-overflow-style: -ms-autohiding-scrollbar;
+          border: 1px solid #ddd;
+      }
+      .table-responsive > .table {
+          margin-bottom: 0;
+      }
+      .table-responsive > .table > thead > tr > th,
+      .table-responsive > .table > tbody > tr > th,
+      .table-responsive > .table > tfoot > tr > th,
+      .table-responsive > .table > thead > tr > td,
+      .table-responsive > .table > tbody > tr > td,
+      .table-responsive > .table > tfoot > tr > td {
+          white-space: nowrap;
+      }
+      .table-responsive > .table-bordered {
+          border: 0;
+      }
+      .table-responsive > .table-bordered > thead > tr > th:first-child,
+      .table-responsive > .table-bordered > tbody > tr > th:first-child,
+      .table-responsive > .table-bordered > tfoot > tr > th:first-child,
+      .table-responsive > .table-bordered > thead > tr > td:first-child,
+      .table-responsive > .table-bordered > tbody > tr > td:first-child,
+      .table-responsive > .table-bordered > tfoot > tr > td:first-child {
+          border-left: 0;
+      }
+      .table-responsive > .table-bordered > thead > tr > th:last-child,
+      .table-responsive > .table-bordered > tbody > tr > th:last-child,
+      .table-responsive > .table-bordered > tfoot > tr > th:last-child,
+      .table-responsive > .table-bordered > thead > tr > td:last-child,
+      .table-responsive > .table-bordered > tbody > tr > td:last-child,
+      .table-responsive > .table-bordered > tfoot > tr > td:last-child {
+          border-right: 0;
+      }
+      .table-responsive > .table-bordered > tbody > tr:last-child > th,
+      .table-responsive > .table-bordered > tfoot > tr:last-child > th,
+      .table-responsive > .table-bordered > tbody > tr:last-child > td,
+      .table-responsive > .table-bordered > tfoot > tr:last-child > td {
+          border-bottom: 0;
+      }
+  }
 
 
 

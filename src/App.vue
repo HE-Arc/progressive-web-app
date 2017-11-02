@@ -37,7 +37,9 @@
         </div>
         <main class="mdl-layout__content">
             <div class="page-content">
-                <router-view></router-view>
+                <transition name="fade"  mode="out-in">
+                    <router-view></router-view>
+                </transition>
             </div>
         </main>
         <footer class="mdl-mini-footer">
@@ -67,14 +69,26 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-@import url('https://code.getmdl.io/1.3.0/material.pink-blue.min.css');
+    @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+    @import url('https://code.getmdl.io/1.3.0/material.pink-blue.min.css');
 
-#btn_home {
-    font-size: 20px;
-    color:#FFF;
-    text-decoration: none;
+    #btn_home {
+        font-size: 20px;
+        color:#FFF;
+        text-decoration: none;
 
-}
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .3s
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0
+    }
+
+    .autocomplete ul li a:hover, .autocomplete ul li.focus-list a {
+        color: white;
+        background: rgb(233,30,99);
+    }
 
 </style>
