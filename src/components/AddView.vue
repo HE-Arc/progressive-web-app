@@ -3,7 +3,7 @@
         <div class="mdl-cell mdl-cell--3-col mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
         <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
             <div class="mdl-cell mdl-cell--12-col">
-                <h1>Add</h1>
+                <h1>Search for new routes</h1>
             </div>
             <div class=" mdl-grid center-items">
                 <autocomplete
@@ -38,46 +38,51 @@
                     <span class="mdl-textfield__error">Only letters, dashes and spaces are accepted.</span>
                 </div> -->
                 <div class="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" pattern="[0-9]{1,2}:[0-9]{2}" id="time" v-model="time"  @keyup.enter="onSubmit">
+                    <input class="mdl-textfield__input" type="text" pattern="[0-9]{1,2}:[0-9]{2}" id="time" v-model="time"  @keyup.enter="onSearchSubmit">
                     <label class="mdl-textfield__label" for="time">Time</label>
                     <span class="mdl-textfield__error">Use this format 9:12 or 21:14</span>
                 </div>
                 <div class="mdl-cell mdl-cell--12-col toolbar-section">
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="submit" type="button" @click="onSubmit" name="submit">OK</button>
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="reset" @click="onReset" name="reset">Cancel</button>
+                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="submitSearch" type="button" @click="onSearchSubmit" name="submit"><i class="material-icons">search</i></button>
+                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" type="reset" @click="onReset" name="reset"><i class="material-icons">clear</i></button>
                 </div>
             </div>
-            <div class="mdl-cell mdl-cell--12-col">
-                <div v-show="connections">
-                    <p>From : <b>{{ location_from }}</b></p>
-                    <p>To : <b>{{ location_to }}</b></p>
-                    <p>Time : <b>{{ time }}</b></p>
+            <transition name="fade">
+                <div v-show="connections" class="mdl-cell mdl-cell--12-col">
+                    <!-- <div v-show="connections">
+                        <p>From : <b>{{ location_from }}</b></p>
+                        <p>To : <b>{{ location_to }}</b></p>
+                        <p>Time : <b>{{ time }}</b></p>
+                    </div> -->
+                    <h2>Search results</h2>
+                    <div id="connection_results" class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <!-- <th>
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select" for="checkbox-all">
+                                            <input type="checkbox" id="checkbox-all" class="mdl-checkbox__input">
+                                        </label>
+                                    </th> -->
+                                    <th class="mdl-data-table__cell--non-numeric">From</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Departure</th>
+                                    <th class="mdl-data-table__cell--non-numeric">To</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Arrival</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Duration</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="mdl-cell mdl-cell--12-col toolbar-section">
+                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="submitConnection" type="button" @click="onConnectionSubmit" name="submit"><i class="material-icons">add</i></button>
+                    </div>
+                    <!-- <pre v-if="preContent" :style="preStyle">
+                        <b>Selected Data:</b>
+                        {{ preContent }}
+                    </pre> -->
                 </div>
-                <div  v-show="connections" class="table-responsive">
-                    <table id="connections_table">
-                        <thead>
-                            <tr>
-                                <!-- <th>
-                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select" for="checkbox-all">
-                                        <input type="checkbox" id="checkbox-all" class="mdl-checkbox__input">
-                                    </label>
-                                </th> -->
-                                <th class="mdl-data-table__cell--non-numeric">From</th>
-                                <th class="mdl-data-table__cell--non-numeric">Departure</th>
-                                <th class="mdl-data-table__cell--non-numeric">To</th>
-                                <th class="mdl-data-table__cell--non-numeric">Arrival</th>
-                                <th class="mdl-data-table__cell--non-numeric">Duration</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-                <pre v-if="preContent" :style="preStyle">
-                    <b>Selected Data:</b>
-                    {{ preContent }}
-                </pre>
-            </div>
-
+            </transition>
 
         </div>
     </div>
@@ -101,6 +106,7 @@ export default {
       time: '',
       preContent: '',
       connections: '',
+      searchId: 0,
       preStyle: {
         background: '#f2f2f2',
         fontFamily: 'monospace',
@@ -138,7 +144,7 @@ export default {
     handleSelect (data) {
 
     },
-    onSubmit () {
+    onSearchSubmit () {
       this.location_from = $('#location_from').val()
       this.location_to = $('#location_to').val()
 
@@ -147,6 +153,14 @@ export default {
       $.get('http://transport.opendata.ch/v1/connections', {from: this.location_from, to: this.location_to, time: this.time}, function (data) {
         self.preContent = JSON.stringify(data, null, 4)
         self.connections = data
+        self.searchId += 1
+
+        // Cas ou un tableau serait deja present
+        if (self.searchId > 1) {
+          $('#connection_results > table > tbody tr').remove()
+          $('#connection_results > table > thead th:first-child').remove()
+          $('#connection_results > table').attr('id', 'connection_table_' + self.searchId).removeClass('is-upgraded').removeAttr('data-upgraded')
+        }
         $(data.connections).each(function (i, connection) {
           var line = $('<tr></tr>').attr('id', 'connection_' + i)
           // var lblChk = $('<label></label>').addClass('mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select').attr('for', 'checkbox_' + i)
@@ -158,12 +172,13 @@ export default {
           var departure = $('<td></td>').text(moment(connection.from.departure).format('HH:mm'))
           var arrival = $('<td></td>').text(moment(connection.to.arrival).format('HH:mm'))
           var duration = $('<td></td>').text(moment.utc(moment(connection.to.arrival).diff(moment(connection.from.departure))).format('HH:mm'))
-          $('#connections_table tbody').append(line)
+          $('#connection_results > table tbody').append(line)
           $(line).append(from, departure, to, arrival, duration)
         })
-        $('#connections_table td').addClass('mdl-data-table__cell--non-numeric')
-        $('#connections_table').addClass('mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp')
-        componentHandler.upgradeElement($('#connections_table')[0])
+        $('#connection_results > table td').addClass('mdl-data-table__cell--non-numeric')
+        $('#connection_results > table').addClass('mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp')
+
+        componentHandler.upgradeElement($('#connection_results > table')[0])
       })
     },
     onReset () {
@@ -174,6 +189,14 @@ export default {
       $('#location_from').val(' ')
       this.time = moment().format('HH:mm')
       $('#time').parent().addClass('is-dirty')
+    },
+    onConnectionSubmit () {
+      $('#connection_results > table > tbody').find('tr.is-selected').each(function () {
+        var text = $(this).children().map(function () {
+          return $(this).text()
+        }).get()
+        alert(text)
+      })
     }
   }
 }
@@ -184,6 +207,7 @@ export default {
   .toolbar-section {
       margin-top: 15px;
       margin-bottom: 50px;
+      text-align: right;
   }
 
   .center-items {

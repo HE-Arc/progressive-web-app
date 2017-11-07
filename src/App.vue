@@ -42,14 +42,14 @@
                 </transition>
             </div>
         </main>
-        <footer class="mdl-mini-footer">
+        <!-- <footer class="mdl-mini-footer">
             <div class="mdl-mini-footer__left-section">
                 <ul class="mdl-mini-footer__link-list">
                     <li><a href="#">Help</a></li>
                     <li><a href="#">Privacy & Terms</a></li>
                 </ul>
             </div>
-        </footer>
+        </footer> -->
     </div>
 </template>
 
@@ -90,5 +90,14 @@ export default {
         color: white;
         background: rgb(233,30,99);
     }
+
+    h1{
+      font-size: 43px;
+    }
+
+    h2{
+      font-size: 36px;
+    }
+
 
 </style>
