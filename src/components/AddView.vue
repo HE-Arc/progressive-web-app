@@ -43,11 +43,11 @@
                     <span class="mdl-textfield__error">Use this format 9:12 or 21:14</span>
                 </div>
                 <div class="mdl-cell mdl-cell--12-col toolbar-section">
-                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="submitSearch" type="button" @click="onSearchSubmit" name="submit"><i class="material-icons">search</i></button>
-                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" type="reset" @click="onReset" name="reset"><i class="material-icons">clear</i></button>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="submitSearch" type="button" @click="onSearchSubmit" name="submit"><i class="material-icons">search</i> Search</button>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="reset" @click="onReset" name="reset"><i class="material-icons">clear</i> Clear</button>
                 </div>
             </div>
-            <transition name="fade">
+            <transition name="fade" mode="out-in">
                 <div v-show="connections" class="mdl-cell mdl-cell--12-col">
                     <!-- <div v-show="connections">
                         <p>From : <b>{{ location_from }}</b></p>
@@ -56,7 +56,7 @@
                     </div> -->
                     <h2>Search results</h2>
                     <div id="connection_results" class="table-responsive">
-                        <table>
+                        <table  class="mdl-cell mdl-cell--12-col">
                             <thead>
                                 <tr>
                                     <!-- <th>
@@ -75,7 +75,7 @@
                         </table>
                     </div>
                     <div class="mdl-cell mdl-cell--12-col toolbar-section">
-                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" id="submitConnection" type="button" @click="onConnectionSubmit" name="submit"><i class="material-icons">add</i></button>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="submitConnection" type="button" @click="onConnectionSubmit" name="submit"><i class="material-icons">add</i>Add to favorites</button>
                     </div>
                     <!-- <pre v-if="preContent" :style="preStyle">
                         <b>Selected Data:</b>
@@ -96,6 +96,20 @@ require('vue2-autocomplete-js/dist/style/vue2-autocomplete.css')
 
 // import autocomplete from 'jquery-ui/ui/widgets/autocomplete'
 // require('jquery-ui/ui/widgets/autocomplete')
+
+// Permet de cocher sur le clic d'une ligne de résultat
+$(document).on('click', 'tr', function () {
+  $(this).toggleClass('is-selected').find('label').toggleClass('is-checked')
+
+  // Cas de la coche "all"
+  if ($(this).parent().is('thead')) {
+    $('tbody tr').removeClass('is-selected').find('label').removeClass('is-checked')
+
+    if ($(this).hasClass('is-selected')) {
+      $('tbody tr').addClass('is-selected').find('label').addClass('is-checked')
+    }
+  }
+})
 
 export default {
   components: { Autocomplete },
@@ -152,15 +166,18 @@ export default {
 
       $.get('http://transport.opendata.ch/v1/connections', {from: this.location_from, to: this.location_to, time: this.time}, function (data) {
         self.preContent = JSON.stringify(data, null, 4)
-        self.connections = data
         self.searchId += 1
 
         // Cas ou un tableau serait deja present
         if (self.searchId > 1) {
+          self.connections = ''
           $('#connection_results > table > tbody tr').remove()
           $('#connection_results > table > thead th:first-child').remove()
           $('#connection_results > table').attr('id', 'connection_table_' + self.searchId).removeClass('is-upgraded').removeAttr('data-upgraded')
         }
+
+        self.connections = data
+
         $(data.connections).each(function (i, connection) {
           var line = $('<tr></tr>').attr('id', 'connection_' + i)
           // var lblChk = $('<label></label>').addClass('mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select').attr('for', 'checkbox_' + i)
@@ -220,7 +237,7 @@ export default {
       margin-right: 0px;
   }
 
-  #submit{
+  #submitSearch{
       margin-right: 10px;
   }
 
