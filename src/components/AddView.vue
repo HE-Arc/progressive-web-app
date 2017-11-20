@@ -75,12 +75,12 @@
                         </table>
                     </div>
                     <div class="mdl-cell mdl-cell--12-col toolbar-section">
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="submitConnection" type="button" @click="onConnectionSubmit" name="submit"><i class="material-icons">add</i>Add to favorites</button>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="submitConnection" type="button" @click="onConnectionSubmit" name="submit"><i class="material-icons">add</i> Add to favorites</button>
                     </div>
-                    <!-- <pre v-if="preContent" :style="preStyle">
+                    <pre v-if="preContent" :style="preStyle">
                         <b>Selected Data:</b>
                         {{ preContent }}
-                    </pre> -->
+                    </pre>
                 </div>
             </transition>
 
@@ -162,6 +162,7 @@ export default {
       this.location_from = $('#location_from').val()
       this.location_to = $('#location_to').val()
 
+      // TODO : voir s'il y a mieux
       let self = this
 
       $.get('http://transport.opendata.ch/v1/connections', {from: this.location_from, to: this.location_to, time: this.time}, function (data) {
@@ -174,6 +175,8 @@ export default {
           $('#connection_results > table > tbody tr').remove()
           $('#connection_results > table > thead th:first-child').remove()
           $('#connection_results > table').attr('id', 'connection_table_' + self.searchId).removeClass('is-upgraded').removeAttr('data-upgraded')
+          // TODO : Delete l'ancien tableau dans la dom de mdl
+          // TODO : à essayer d'enlever is-upgraded et de lancer un upgrade element
         }
 
         self.connections = data

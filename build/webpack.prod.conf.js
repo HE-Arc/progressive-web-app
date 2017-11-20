@@ -107,6 +107,8 @@ var webpackConfig = merge(baseWebpackConfig, {
       staticFileGlobs: ['dist/**/*.{js,html,css}'],
       minify: false,
       stripPrefix: 'dist/',
+      skipWaiting: false,
+      importScripts:['static/js/service-worker-import.js'],
       runtimeCaching: [
       {
         urlPattern: /^https:\/\/fonts\.googleapis\.com\//,

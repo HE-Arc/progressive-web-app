@@ -42,14 +42,12 @@
                 </transition>
             </div>
         </main>
-        <!-- <footer class="mdl-mini-footer">
-            <div class="mdl-mini-footer__left-section">
-                <ul class="mdl-mini-footer__link-list">
-                    <li><a href="#">Help</a></li>
-                    <li><a href="#">Privacy & Terms</a></li>
-                </ul>
+        <footer>
+            <div aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
+                <div class="mdl-snackbar__text"></div>
+                <button type="button" class="mdl-snackbar__action"></button>
             </div>
-        </footer> -->
+        </footer>
     </div>
 </template>
 
