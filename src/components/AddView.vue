@@ -5,6 +5,7 @@
             <div class="mdl-cell mdl-cell--12-col">
                 <h1>Search for new routes</h1>
             </div>
+
             <div class=" mdl-grid center-items">
                 <autocomplete
                   url="http://transport.opendata.ch/v1/locations"
@@ -48,7 +49,7 @@
                 </div>
             </div>
             <transition name="fade" mode="out-in">
-                <div v-show="connections" class="mdl-cell mdl-cell--12-col">
+                <div v-show="connections_JSON" class="mdl-cell mdl-cell--12-col">
                     <!-- <div v-show="connections">
                         <p>From : <b>{{ location_from }}</b></p>
                         <p>To : <b>{{ location_to }}</b></p>
@@ -94,8 +95,12 @@ import moment from 'moment'
 import Autocomplete from 'vue2-autocomplete-js'
 require('vue2-autocomplete-js/dist/style/vue2-autocomplete.css')
 
+import { uuid } from 'vue-idb'
+
 // import autocomplete from 'jquery-ui/ui/widgets/autocomplete'
 // require('jquery-ui/ui/widgets/autocomplete')
+
+// db.friends.put({name: 'View', shoeSize: 10})
 
 // Permet de cocher sur le clic d'une ligne de résultat
 $(document).on('click', 'tr', function () {
@@ -119,7 +124,7 @@ export default {
       location_to: '',
       time: '',
       preContent: '',
-      connections: '',
+      connections_JSON: '',
       searchId: 0,
       preStyle: {
         background: '#f2f2f2',
@@ -128,10 +133,13 @@ export default {
         display: 'inline-block',
         padding: '15px 7px',
         width: '100%'
-      }
+      },
+      tests: [], // TODO : retirer les tests
+      connections: []
     }
   },
   mounted: function () {
+    this.update()
     this.$nextTick(function () {
       // var elements = $('#location_from')[0]
       // componentHandler.downgradeElements(elements)
@@ -171,7 +179,7 @@ export default {
 
         // Cas ou un tableau serait deja present
         if (self.searchId > 1) {
-          self.connections = ''
+          self.connections_JSON = ''
           $('#connection_results > table > tbody tr').remove()
           $('#connection_results > table > thead th:first-child').remove()
           $('#connection_results > table').attr('id', 'connection_table_' + self.searchId).removeClass('is-upgraded').removeAttr('data-upgraded')
@@ -179,16 +187,12 @@ export default {
           // TODO : à essayer d'enlever is-upgraded et de lancer un upgrade element
         }
 
-        self.connections = data
+        self.connections_JSON = data
 
         $(data.connections).each(function (i, connection) {
           var line = $('<tr></tr>').attr('id', 'connection_' + i)
-          // var lblChk = $('<label></label>').addClass('mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select').attr('for', 'checkbox_' + i)
-          // var inputChk = $('<input />').addClass('mdl-checkbox__input').attr({type: 'checkbox', id: 'checkbox' + i})
-          // $(lblChk).append(inputChk)
-          // var checkbox = $('<td></td>').append(lblChk)
-          var from = $('<td></td>').text(self.location_from)
-          var to = $('<td></td>').text(self.location_to)
+          var from = $('<td></td>').text(connection.from.station.name)
+          var to = $('<td></td>').text(connection.to.station.name)
           var departure = $('<td></td>').text(moment(connection.from.departure).format('HH:mm'))
           var arrival = $('<td></td>').text(moment(connection.to.arrival).format('HH:mm'))
           var duration = $('<td></td>').text(moment.utc(moment(connection.to.arrival).diff(moment(connection.from.departure))).format('HH:mm'))
@@ -211,12 +215,33 @@ export default {
       $('#time').parent().addClass('is-dirty')
     },
     onConnectionSubmit () {
+      // TODO : voir s'il y a mieux
+      let self = this
+
       $('#connection_results > table > tbody').find('tr.is-selected').each(function () {
-        var text = $(this).children().map(function () {
+        var connectionData = $(this).children().map(function () {
           return $(this).text()
         }).get()
-        alert(text)
+        // alert(connectionData)
+        self.add(connectionData)
       })
+    },
+    update () {
+      this.$db.connections.toArray().then(connections => (this.connections = connections))
+    },
+    add (connectionData) {
+      this.$db.connections.add({
+        id: uuid(),
+        location_from: connectionData[1],
+        location_to: connectionData[3],
+        departure: connectionData[2],
+        arrival: connectionData[4],
+        created_at: new Date(),
+        updated_at: new Date()
+      }).then(() => this.update())
+    },
+    remove (connection) {
+      this.$db.connections.where('id').equals(connection.id).delete().then(() => this.update())
     }
   }
 }

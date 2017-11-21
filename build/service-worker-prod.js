@@ -29,6 +29,23 @@
           (window.location.protocol === 'https:' || isLocalhost)) {
         navigator.serviceWorker.register('service-worker.js')
         .then(function(registration) {
+
+          // Si un service worker est deja en utilisation
+          if (navigator.serviceWorker.controller) {
+            // Cas de l'attente d'un service service
+            if (registration.waiting) {
+              showUpdateReady(registration.waiting);
+            }
+
+            // Rafraichit la page si le controller change
+            var refreshing
+            navigator.serviceWorker.addEventListener('controllerchange', function () {
+              if (refreshing) return
+              window.location.reload()
+              refreshing = true
+            });
+          }
+
           // updatefound is fired if service-worker.js changes.
           registration.onupdatefound = function() {
             // updatefound is also fired the very first time the SW is installed,
@@ -39,13 +56,6 @@
             //alert('sw.onupdatefound');
 
             if (navigator.serviceWorker.controller) {
-
-              // TODO : Marche pas
-              if (registration.waiting) {
-                alert('waiting');
-                showUpdateReady(registration.waiting);
-                return;
-              }
 
               // The updatefound event implies that registration.installing is set
               const installingWorker = registration.installing;
@@ -73,14 +83,7 @@
                     // Ignore
                 }
               };
-
-              // Rafraichit la page si le controller change
-              var refreshing
-              navigator.serviceWorker.addEventListener('controllerchange', function () {
-                if (refreshing) return
-                window.location.reload()
-                refreshing = true
-              });
+//ici
             }
             // Shell mis en cache
             else{

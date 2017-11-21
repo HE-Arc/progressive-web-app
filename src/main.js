@@ -6,6 +6,19 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+// import Dexie from 'dexie'
+import VueIdb from 'vue-idb'
+
+Vue.use(VueIdb)
+
+export default new VueIdb({
+  database: 'test',
+  schemas: [
+    { tests: 'id, label, created_at, updated_at' },
+    { connections: 'id, location_from, location_to, departure, arrival, created_at, updated_at' }
+  ]
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

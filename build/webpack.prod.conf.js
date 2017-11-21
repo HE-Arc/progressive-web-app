@@ -109,6 +109,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       stripPrefix: 'dist/',
       skipWaiting: false,
       importScripts:['static/js/service-worker-import.js'],
+      handleFetch: false, //UNIQUEMENT POUR LES TEST DESACTIVE L'ALIMENTATION PAR LE CACHE
       runtimeCaching: [
       {
         urlPattern: /^https:\/\/fonts\.googleapis\.com\//,
