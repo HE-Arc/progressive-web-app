@@ -12,10 +12,9 @@ import VueIdb from 'vue-idb'
 Vue.use(VueIdb)
 
 export default new VueIdb({
-  database: 'test',
+  database: 'NextStop',
   schemas: [
-    { tests: 'id, label, created_at, updated_at' },
-    { connections: 'id, location_from, location_to, departure, arrival, created_at, updated_at' }
+    { connections: 'id, location_from, location_to, departure, arrival, all_others_info, created_at, updated_at' }
   ]
 })
 
