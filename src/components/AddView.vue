@@ -97,6 +97,8 @@ require('vue2-autocomplete-js/dist/style/vue2-autocomplete.css')
 
 import { uuid } from 'vue-idb'
 
+import fakedata from 'fake.json'
+
 // import autocomplete from 'jquery-ui/ui/widgets/autocomplete'
 // require('jquery-ui/ui/widgets/autocomplete')
 
@@ -120,6 +122,7 @@ export default {
   components: { Autocomplete },
   data: function () {
     return {
+      fakedata: fakedata,
       location_from: '',
       location_to: '',
       time: '',
@@ -173,6 +176,10 @@ export default {
       let self = this
 
       $.get('https://transport.opendata.ch/v1/connections', {from: this.location_from, to: this.location_to, time: this.time}, function (data) {
+        // Import de données factices -------
+        data = self.fakedata
+        // Fin import -----------------------
+
         self.preContent = JSON.stringify(data, null, 4)
         self.searchId += 1
 

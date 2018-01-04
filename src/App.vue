@@ -12,7 +12,7 @@
                             Add a new travel
                         </span>
                     </router-link>
-                    <a class="mdl-navigation__link" href="">
+                    <a href="" id="refresh_button_link" class="mdl-navigation__link" v-on:click="refreshPage">
                         <i id="btn_refresh" class="material-icons">refresh</i>
                         <span class="mdl-tooltip" data-mdl-for="btn_refresh">
                             Refresh data
@@ -56,10 +56,19 @@ require('material-design-lite')
 
 export default {
   name: 'app',
+  mounted: function () {
+
+  },
   methods: {
     hideMenu: function () {
       document.getElementsByClassName('mdl-layout__drawer')[0].classList.remove('is-visible')
       document.getElementsByClassName('mdl-layout__obfuscator')[0].classList.remove('is-visible')
+    },
+    refreshPage: function (event) {
+      // Empêche la redirection vers l'accueil
+      event.preventDefault()
+      // Redirige vers la page courante (reload)
+      this.$router.go()
     }
   }
 }

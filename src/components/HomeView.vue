@@ -24,7 +24,7 @@
                   </div>
                   <div v-for="connection in connection_list" >
                     <div v-bind:id="connection.id" class="mdl-list__item mdl-button mdl-js-button  mdl-js-ripple-effect accordion">
-                      {{ connection.departure}} - {{ connection.arrival }}<i class="material-icons mdl-accordion__icon">expand_more</i>
+                      {{ connection.departure}} - {{ connection.arrival }}<span id="late_stamp" v-if="connection.all_others_info.from.delay > 0"><i class="material-icons">watch_later</i> {{connection.all_others_info.from.delay}}mn</span><i class="material-icons mdl-accordion__icon">expand_more</i>
                     </div>
                     <div class="panel">
                       <button type="button" @click="remove(connection)" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
@@ -64,17 +64,24 @@
             </table>
         </div>
 
-        <h1>Sorted</h1>
+        <!-- <h1>Sorted</h1>
         <pre v-if="connectionsSorted" :style="preStyle">
             <b>Selected Data:</b>
             {{ connectionsSorted }}
+        </pre> -->
+
+        <h1>Update</h1>
+        <pre v-if="connectionsUpdate" :style="preStyle">
+            <b>Selected Data:</b>
+            {{ connectionsUpdate }}
         </pre>
 
-        <h1>Raw</h1>
+        <!-- <h1>Raw</h1>
         <pre v-if="connections" :style="preStyle">
             <b>Selected Data:</b>
             {{ connections }}
-        </pre>
+        </pre> -->
+
 
 
       </div>
@@ -82,7 +89,8 @@
 </template>
 
 <script>
-import { uuid } from 'vue-idb'
+// import { uuid } from 'vue-idb'
+import moment from 'moment'
 
 $(document.body).on('click', '.accordion', function () {
   $(this).toggleClass('active')
@@ -93,6 +101,7 @@ export default {
   data: function () {
     return {
       connections: [],
+      connectionsUpdate: [],
       connectionsSorted: {},
       preStyle: {
         background: '#f2f2f2',
@@ -109,38 +118,63 @@ export default {
   },
   // Définissez les méthodes de l'objet
   methods: {
+    sortConnections (connectionArray) {
+      var connectionsSorted = {}
+      $(connectionArray).each(function (i, connection) {
+        var from = connection.location_from
+        var to = connection.location_to
+
+        if (connectionsSorted[from] == null) {
+          connectionsSorted[from] = {}
+        }
+        if (connectionsSorted[from][to] == null) {
+          connectionsSorted[from][to] = []
+        }
+        connectionsSorted[from][to].push(connection)
+
+        // TODO : tri effectué à chaque fois... pas terrible
+        connectionsSorted[from][to].sort(function (a, b) { return (a.departure > b.departure) ? 1 : ((b.departure > a.departure) ? -1 : 0) })
+      })
+      return connectionsSorted
+    },
     update () {
       var self = this
       this.$db.connections.orderBy('location_from').toArray().then(function (tab) {
-        self.connectionsSorted = {}
+        // Si on est connecté à Internet
+        if (navigator.onLine) {
+          // Parcourt les trajets favoris
+          $(tab).each(function (i, connection) {
+            // Si la derniere update date d'assez longtemps
+            if (moment.duration(moment().diff(moment(connection.updated_at))).asMinutes() > 1) {
+              // Requete pour update sur trajet
+              $.get('https://transport.opendata.ch/v1/connections', {limit: 1, from: connection.location_from, to: connection.location_to, time: connection.departure}, function (data) {
+                self.connectionsUpdate = JSON.stringify(data, null, 4)
+                data = data.connections[0]
+                // Mise à jour des informations dans l'objet
+                connection.location_from = data.from.station.name
+                connection.location_to = data.to.station.name
+                connection.departure = moment(data.from.departure).format('HH:mm')
+                connection.arrival = moment(data.to.arrival).format('HH:mm')
+                connection.all_others_info = data
+                connection.updated_at = new Date()
+
+                // Remplace l'objet dans IDB si l'id est deja présente dans la table, sinon ajoute un nouveau
+                self.$db.connections.put(connection).then(function (updated) {
+                  if (updated) {
+                    console.log('Updated')
+                  } else {
+                    console.log('Not updated')
+                  }
+                })
+              })
+            }
+          })
+        }
+        // Sauvegarde le tableau de trajet avant les tris
         self.connections = tab
-        $(tab).each(function (i, connection) {
-          var from = connection.location_from
-          var to = connection.location_to
-
-          if (self.connectionsSorted[from] == null) {
-            self.connectionsSorted[from] = {}
-          }
-          if (self.connectionsSorted[from][to] == null) {
-            self.connectionsSorted[from][to] = []
-          }
-          self.connectionsSorted[from][to].push(connection)
-
-          // TODO : tri effectué à chaque fois... pas terrible
-          self.connectionsSorted[from][to].sort(function (a, b) { return (a.departure > b.departure) ? 1 : ((b.departure > a.departure) ? -1 : 0) })
-        })
+        // Trie le tableau de trajets et le réécrit en JSON
+        self.connectionsSorted = self.sortConnections(tab)
       })
-    },
-    add (connectionData) {
-      this.$db.connections.add({
-        id: uuid(),
-        location_from: connectionData[1],
-        location_to: connectionData[3],
-        departure: connectionData[2],
-        arrival: connectionData[4],
-        created_at: new Date(),
-        updated_at: new Date()
-      }).then(() => this.update())
     },
     remove (connection) {
       // Pour éviter que l'accordéon suivant celui supprimé s'ouvre à sa place
@@ -153,6 +187,10 @@ export default {
 </script>
 
 <style scoped>
+
+#late_stamp{
+  margin-left: 20px;
+}
 
 .mdl-card__title{
   padding-bottom: 0px;

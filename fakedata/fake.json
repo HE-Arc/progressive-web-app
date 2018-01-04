@@ -1,0 +1,1686 @@
+﻿{
+    "connections": [
+        {
+            "from": {
+                "station": {
+                    "id": "8504221",
+                    "name": "Neuchâtel",
+                    "score": null,
+                    "coordinate": {
+                        "type": "WGS84",
+                        "x": 46.996727,
+                        "y": 6.935713
+                    },
+                    "distance": null
+                },
+                "arrival": null,
+                "arrivalTimestamp": null,
+                "departure": "2017-12-04T16:37:00+0100",
+                "departureTimestamp": 1512401820,
+                "delay": 1,
+                "platform": "6",
+                "prognosis": {
+                    "platform": null,
+                    "arrival": null,
+                    "departure": "2017-12-04T16:38:00+0100",
+                    "capacity1st": null,
+                    "capacity2nd": null
+                },
+                "realtimeAvailability": null,
+                "location": {
+                    "id": "8504221",
+                    "name": "Neuchâtel",
+                    "score": null,
+                    "coordinate": {
+                        "type": "WGS84",
+                        "x": 46.996727,
+                        "y": 6.935713
+                    },
+                    "distance": null
+                }
+            },
+            "to": {
+                "station": {
+                    "id": "8504300",
+                    "name": "Biel/Bienne",
+                    "score": null,
+                    "coordinate": {
+                        "type": "WGS84",
+                        "x": 47.132893,
+                        "y": 7.242918
+                    },
+                    "distance": null
+                },
+                "arrival": "2017-12-04T17:08:00+0100",
+                "arrivalTimestamp": 1512403680,
+                "departure": null,
+                "departureTimestamp": null,
+                "delay": null,
+                "platform": "6",
+                "prognosis": {
+                    "platform": null,
+                    "arrival": null,
+                    "departure": null,
+                    "capacity1st": null,
+                    "capacity2nd": null
+                },
+                "realtimeAvailability": null,
+                "location": {
+                    "id": "8504300",
+                    "name": "Biel/Bienne",
+                    "score": null,
+                    "coordinate": {
+                        "type": "WGS84",
+                        "x": 47.132893,
+                        "y": 7.242918
+                    },
+                    "distance": null
+                }
+            },
+            "duration": "00d00:31:00",
+            "transfers": 0,
+            "service": null,
+            "products": [
+                "R"
+            ],
+            "capacity1st": null,
+            "capacity2nd": null,
+            "sections": [
+                {
+                    "journey": {
+                        "name": "R 7457",
+                        "category": "R",
+                        "subcategory": null,
+                        "categoryCode": null,
+                        "number": "R 7457",
+                        "operator": "SBB",
+                        "to": "Biel/Bienne",
+                        "passList": [
+                            {
+                                "station": {
+                                    "id": "8504221",
+                                    "name": "Neuchâtel",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 46.996727,
+                                        "y": 6.935713
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": null,
+                                "arrivalTimestamp": null,
+                                "departure": "2017-12-04T16:37:00+0100",
+                                "departureTimestamp": 1512401820,
+                                "delay": 1,
+                                "platform": "6",
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T16:38:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504221",
+                                    "name": "Neuchâtel",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 46.996727,
+                                        "y": 6.935713
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504222",
+                                    "name": "St-Blaise CFF",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.014569,
+                                        "y": 6.982116
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T16:40:00+0100",
+                                "arrivalTimestamp": 1512402000,
+                                "departure": "2017-12-04T16:40:00+0100",
+                                "departureTimestamp": 1512402000,
+                                "delay": 5,
+                                "platform": null,
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T16:45:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504222",
+                                    "name": "St-Blaise CFF",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.014569,
+                                        "y": 6.982116
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504223",
+                                    "name": "Cornaux",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.038563,
+                                        "y": 7.023372
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T16:44:00+0100",
+                                "arrivalTimestamp": 1512402240,
+                                "departure": "2017-12-04T16:44:00+0100",
+                                "departureTimestamp": 1512402240,
+                                "delay": 4,
+                                "platform": null,
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T16:48:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504223",
+                                    "name": "Cornaux",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.038563,
+                                        "y": 7.023372
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504224",
+                                    "name": "Cressier NE",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.051942,
+                                        "y": 7.039535
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T16:46:00+0100",
+                                "arrivalTimestamp": 1512402360,
+                                "departure": "2017-12-04T16:46:00+0100",
+                                "departureTimestamp": 1512402360,
+                                "delay": 4,
+                                "platform": null,
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T16:50:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504224",
+                                    "name": "Cressier NE",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.051942,
+                                        "y": 7.039535
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504225",
+                                    "name": "Le Landeron",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.056629,
+                                        "y": 7.066338
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T16:50:00+0100",
+                                "arrivalTimestamp": 1512402600,
+                                "departure": "2017-12-04T16:50:00+0100",
+                                "departureTimestamp": 1512402600,
+                                "delay": 2,
+                                "platform": null,
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T16:52:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504225",
+                                    "name": "Le Landeron",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.056629,
+                                        "y": 7.066338
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504226",
+                                    "name": "La Neuveville",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.062827,
+                                        "y": 7.095229
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T16:52:00+0100",
+                                "arrivalTimestamp": 1512402720,
+                                "departure": "2017-12-04T16:52:00+0100",
+                                "departureTimestamp": 1512402720,
+                                "delay": 3,
+                                "platform": null,
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T16:55:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504226",
+                                    "name": "La Neuveville",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.062827,
+                                        "y": 7.095229
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504227",
+                                    "name": "Ligerz",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.083763,
+                                        "y": 7.135154
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T16:55:00+0100",
+                                "arrivalTimestamp": 1512402900,
+                                "departure": "2017-12-04T16:55:00+0100",
+                                "departureTimestamp": 1512402900,
+                                "delay": 3,
+                                "platform": null,
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T16:58:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504227",
+                                    "name": "Ligerz",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.083763,
+                                        "y": 7.135154
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504228",
+                                    "name": "Twann",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.093658,
+                                        "y": 7.156501
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T16:59:00+0100",
+                                "arrivalTimestamp": 1512403140,
+                                "departure": "2017-12-04T16:59:00+0100",
+                                "departureTimestamp": 1512403140,
+                                "delay": 1,
+                                "platform": null,
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T17:00:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504228",
+                                    "name": "Twann",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.093658,
+                                        "y": 7.156501
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504229",
+                                    "name": "Tüscherz",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.114997,
+                                        "y": 7.197314
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T17:02:00+0100",
+                                "arrivalTimestamp": 1512403320,
+                                "departure": "2017-12-04T17:02:00+0100",
+                                "departureTimestamp": 1512403320,
+                                "delay": 1,
+                                "platform": null,
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T17:03:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504229",
+                                    "name": "Tüscherz",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.114997,
+                                        "y": 7.197314
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504300",
+                                    "name": "Biel/Bienne",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.132893,
+                                        "y": 7.242918
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T17:08:00+0100",
+                                "arrivalTimestamp": 1512403680,
+                                "departure": null,
+                                "departureTimestamp": null,
+                                "delay": 0,
+                                "platform": "10",
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": "2017-12-04T17:08:00+0100",
+                                    "departure": null,
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504300",
+                                    "name": "Biel/Bienne",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.132893,
+                                        "y": 7.242918
+                                    },
+                                    "distance": null
+                                }
+                            }
+                        ],
+                        "capacity1st": null,
+                        "capacity2nd": null
+                    },
+                    "walk": null,
+                    "departure": {
+                        "station": {
+                            "id": "8504221",
+                            "name": "Neuchâtel",
+                            "score": null,
+                            "coordinate": {
+                                "type": "WGS84",
+                                "x": 46.996727,
+                                "y": 6.935713
+                            },
+                            "distance": null
+                        },
+                        "arrival": null,
+                        "arrivalTimestamp": null,
+                        "departure": "2017-12-04T16:37:00+0100",
+                        "departureTimestamp": 1512401820,
+                        "delay": 1,
+                        "platform": "6",
+                        "prognosis": {
+                            "platform": null,
+                            "arrival": null,
+                            "departure": "2017-12-04T16:38:00+0100",
+                            "capacity1st": null,
+                            "capacity2nd": null
+                        },
+                        "realtimeAvailability": null,
+                        "location": {
+                            "id": "8504221",
+                            "name": "Neuchâtel",
+                            "score": null,
+                            "coordinate": {
+                                "type": "WGS84",
+                                "x": 46.996727,
+                                "y": 6.935713
+                            },
+                            "distance": null
+                        }
+                    },
+                    "arrival": {
+                        "station": {
+                            "id": "8504300",
+                            "name": "Biel/Bienne",
+                            "score": null,
+                            "coordinate": {
+                                "type": "WGS84",
+                                "x": 47.132893,
+                                "y": 7.242918
+                            },
+                            "distance": null
+                        },
+                        "arrival": "2017-12-04T17:08:00+0100",
+                        "arrivalTimestamp": 1512403680,
+                        "departure": null,
+                        "departureTimestamp": null,
+                        "delay": 0,
+                        "platform": "10",
+                        "prognosis": {
+                            "platform": null,
+                            "arrival": "2017-12-04T17:08:00+0100",
+                            "departure": null,
+                            "capacity1st": null,
+                            "capacity2nd": null
+                        },
+                        "realtimeAvailability": null,
+                        "location": {
+                            "id": "8504300",
+                            "name": "Biel/Bienne",
+                            "score": null,
+                            "coordinate": {
+                                "type": "WGS84",
+                                "x": 47.132893,
+                                "y": 7.242918
+                            },
+                            "distance": null
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "from": {
+                "station": {
+                    "id": "8504221",
+                    "name": "Neuchâtel",
+                    "score": null,
+                    "coordinate": {
+                        "type": "WGS84",
+                        "x": 46.996727,
+                        "y": 6.935713
+                    },
+                    "distance": null
+                },
+                "arrival": null,
+                "arrivalTimestamp": null,
+                "departure": "2017-12-04T16:59:00+0100",
+                "departureTimestamp": 1512403140,
+                "delay": 13,
+                "platform": "4",
+                "prognosis": {
+                    "platform": null,
+                    "arrival": null,
+                    "departure": "2017-12-04T17:12:00+0100",
+                    "capacity1st": null,
+                    "capacity2nd": null
+                },
+                "realtimeAvailability": null,
+                "location": {
+                    "id": "8504221",
+                    "name": "Neuchâtel",
+                    "score": null,
+                    "coordinate": {
+                        "type": "WGS84",
+                        "x": 46.996727,
+                        "y": 6.935713
+                    },
+                    "distance": null
+                }
+            },
+            "to": {
+                "station": {
+                    "id": "8504300",
+                    "name": "Biel/Bienne",
+                    "score": null,
+                    "coordinate": {
+                        "type": "WGS84",
+                        "x": 47.132893,
+                        "y": 7.242918
+                    },
+                    "distance": null
+                },
+                "arrival": "2017-12-04T17:15:00+0100",
+                "arrivalTimestamp": 1512404100,
+                "departure": null,
+                "departureTimestamp": null,
+                "delay": null,
+                "platform": "4",
+                "prognosis": {
+                    "platform": null,
+                    "arrival": null,
+                    "departure": null,
+                    "capacity1st": null,
+                    "capacity2nd": null
+                },
+                "realtimeAvailability": null,
+                "location": {
+                    "id": "8504300",
+                    "name": "Biel/Bienne",
+                    "score": null,
+                    "coordinate": {
+                        "type": "WGS84",
+                        "x": 47.132893,
+                        "y": 7.242918
+                    },
+                    "distance": null
+                }
+            },
+            "duration": "00d00:16:00",
+            "transfers": 0,
+            "service": null,
+            "products": [
+                "ICN"
+            ],
+            "capacity1st": null,
+            "capacity2nd": null,
+            "sections": [
+                {
+                    "journey": {
+                        "name": "ICN 1531",
+                        "category": "ICN",
+                        "subcategory": null,
+                        "categoryCode": null,
+                        "number": "ICN 1531",
+                        "operator": "SBB",
+                        "to": "St. Gallen",
+                        "passList": [
+                            {
+                                "station": {
+                                    "id": "8504221",
+                                    "name": "Neuchâtel",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 46.996727,
+                                        "y": 6.935713
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": null,
+                                "arrivalTimestamp": null,
+                                "departure": "2017-12-04T16:59:00+0100",
+                                "departureTimestamp": 1512403140,
+                                "delay": 13,
+                                "platform": "4",
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T17:12:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504221",
+                                    "name": "Neuchâtel",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 46.996727,
+                                        "y": 6.935713
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504300",
+                                    "name": "Biel/Bienne",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.132893,
+                                        "y": 7.242918
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T17:15:00+0100",
+                                "arrivalTimestamp": 1512404100,
+                                "departure": null,
+                                "departureTimestamp": null,
+                                "delay": 14,
+                                "platform": "3",
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": "2017-12-04T17:29:00+0100",
+                                    "departure": null,
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504300",
+                                    "name": "Biel/Bienne",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.132893,
+                                        "y": 7.242918
+                                    },
+                                    "distance": null
+                                }
+                            }
+                        ],
+                        "capacity1st": null,
+                        "capacity2nd": null
+                    },
+                    "walk": null,
+                    "departure": {
+                        "station": {
+                            "id": "8504221",
+                            "name": "Neuchâtel",
+                            "score": null,
+                            "coordinate": {
+                                "type": "WGS84",
+                                "x": 46.996727,
+                                "y": 6.935713
+                            },
+                            "distance": null
+                        },
+                        "arrival": null,
+                        "arrivalTimestamp": null,
+                        "departure": "2017-12-04T16:59:00+0100",
+                        "departureTimestamp": 1512403140,
+                        "delay": 13,
+                        "platform": "4",
+                        "prognosis": {
+                            "platform": null,
+                            "arrival": null,
+                            "departure": "2017-12-04T17:12:00+0100",
+                            "capacity1st": null,
+                            "capacity2nd": null
+                        },
+                        "realtimeAvailability": null,
+                        "location": {
+                            "id": "8504221",
+                            "name": "Neuchâtel",
+                            "score": null,
+                            "coordinate": {
+                                "type": "WGS84",
+                                "x": 46.996727,
+                                "y": 6.935713
+                            },
+                            "distance": null
+                        }
+                    },
+                    "arrival": {
+                        "station": {
+                            "id": "8504300",
+                            "name": "Biel/Bienne",
+                            "score": null,
+                            "coordinate": {
+                                "type": "WGS84",
+                                "x": 47.132893,
+                                "y": 7.242918
+                            },
+                            "distance": null
+                        },
+                        "arrival": "2017-12-04T17:15:00+0100",
+                        "arrivalTimestamp": 1512404100,
+                        "departure": null,
+                        "departureTimestamp": null,
+                        "delay": 14,
+                        "platform": "3",
+                        "prognosis": {
+                            "platform": null,
+                            "arrival": "2017-12-04T17:29:00+0100",
+                            "departure": null,
+                            "capacity1st": null,
+                            "capacity2nd": null
+                        },
+                        "realtimeAvailability": null,
+                        "location": {
+                            "id": "8504300",
+                            "name": "Biel/Bienne",
+                            "score": null,
+                            "coordinate": {
+                                "type": "WGS84",
+                                "x": 47.132893,
+                                "y": 7.242918
+                            },
+                            "distance": null
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "from": {
+                "station": {
+                    "id": "8504221",
+                    "name": "Neuchâtel",
+                    "score": null,
+                    "coordinate": {
+                        "type": "WGS84",
+                        "x": 46.996727,
+                        "y": 6.935713
+                    },
+                    "distance": null
+                },
+                "arrival": null,
+                "arrivalTimestamp": null,
+                "departure": "2017-12-04T17:06:00+0100",
+                "departureTimestamp": 1512403560,
+                "delay": 0,
+                "platform": "7",
+                "prognosis": {
+                    "platform": null,
+                    "arrival": null,
+                    "departure": "2017-12-04T17:06:00+0100",
+                    "capacity1st": null,
+                    "capacity2nd": null
+                },
+                "realtimeAvailability": null,
+                "location": {
+                    "id": "8504221",
+                    "name": "Neuchâtel",
+                    "score": null,
+                    "coordinate": {
+                        "type": "WGS84",
+                        "x": 46.996727,
+                        "y": 6.935713
+                    },
+                    "distance": null
+                }
+            },
+            "to": {
+                "station": {
+                    "id": "8504300",
+                    "name": "Biel/Bienne",
+                    "score": null,
+                    "coordinate": {
+                        "type": "WGS84",
+                        "x": 47.132893,
+                        "y": 7.242918
+                    },
+                    "distance": null
+                },
+                "arrival": "2017-12-04T17:37:00+0100",
+                "arrivalTimestamp": 1512405420,
+                "departure": null,
+                "departureTimestamp": null,
+                "delay": null,
+                "platform": "7",
+                "prognosis": {
+                    "platform": null,
+                    "arrival": null,
+                    "departure": null,
+                    "capacity1st": null,
+                    "capacity2nd": null
+                },
+                "realtimeAvailability": null,
+                "location": {
+                    "id": "8504300",
+                    "name": "Biel/Bienne",
+                    "score": null,
+                    "coordinate": {
+                        "type": "WGS84",
+                        "x": 47.132893,
+                        "y": 7.242918
+                    },
+                    "distance": null
+                }
+            },
+            "duration": "00d00:31:00",
+            "transfers": 0,
+            "service": null,
+            "products": [
+                "R"
+            ],
+            "capacity1st": null,
+            "capacity2nd": null,
+            "sections": [
+                {
+                    "journey": {
+                        "name": "R 7467",
+                        "category": "R",
+                        "subcategory": null,
+                        "categoryCode": null,
+                        "number": "R 7467",
+                        "operator": "SBB",
+                        "to": "Biel/Bienne",
+                        "passList": [
+                            {
+                                "station": {
+                                    "id": "8504221",
+                                    "name": "Neuchâtel",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 46.996727,
+                                        "y": 6.935713
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": null,
+                                "arrivalTimestamp": null,
+                                "departure": "2017-12-04T17:06:00+0100",
+                                "departureTimestamp": 1512403560,
+                                "delay": 0,
+                                "platform": "7",
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T17:06:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504221",
+                                    "name": "Neuchâtel",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 46.996727,
+                                        "y": 6.935713
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504222",
+                                    "name": "St-Blaise CFF",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.014569,
+                                        "y": 6.982116
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T17:09:00+0100",
+                                "arrivalTimestamp": 1512403740,
+                                "departure": "2017-12-04T17:09:00+0100",
+                                "departureTimestamp": 1512403740,
+                                "delay": 0,
+                                "platform": null,
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T17:09:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504222",
+                                    "name": "St-Blaise CFF",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.014569,
+                                        "y": 6.982116
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504223",
+                                    "name": "Cornaux",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.038563,
+                                        "y": 7.023372
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T17:13:00+0100",
+                                "arrivalTimestamp": 1512403980,
+                                "departure": "2017-12-04T17:13:00+0100",
+                                "departureTimestamp": 1512403980,
+                                "delay": 0,
+                                "platform": null,
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T17:13:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504223",
+                                    "name": "Cornaux",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.038563,
+                                        "y": 7.023372
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504224",
+                                    "name": "Cressier NE",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.051942,
+                                        "y": 7.039535
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T17:15:00+0100",
+                                "arrivalTimestamp": 1512404100,
+                                "departure": "2017-12-04T17:15:00+0100",
+                                "departureTimestamp": 1512404100,
+                                "delay": 1,
+                                "platform": null,
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T17:16:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504224",
+                                    "name": "Cressier NE",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.051942,
+                                        "y": 7.039535
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504225",
+                                    "name": "Le Landeron",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.056629,
+                                        "y": 7.066338
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T17:18:00+0100",
+                                "arrivalTimestamp": 1512404280,
+                                "departure": "2017-12-04T17:19:00+0100",
+                                "departureTimestamp": 1512404340,
+                                "delay": 0,
+                                "platform": null,
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T17:19:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504225",
+                                    "name": "Le Landeron",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.056629,
+                                        "y": 7.066338
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504226",
+                                    "name": "La Neuveville",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.062827,
+                                        "y": 7.095229
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T17:21:00+0100",
+                                "arrivalTimestamp": 1512404460,
+                                "departure": "2017-12-04T17:21:00+0100",
+                                "departureTimestamp": 1512404460,
+                                "delay": 3,
+                                "platform": null,
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T17:24:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504226",
+                                    "name": "La Neuveville",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.062827,
+                                        "y": 7.095229
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504227",
+                                    "name": "Ligerz",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.083763,
+                                        "y": 7.135154
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T17:24:00+0100",
+                                "arrivalTimestamp": 1512404640,
+                                "departure": "2017-12-04T17:24:00+0100",
+                                "departureTimestamp": 1512404640,
+                                "delay": 4,
+                                "platform": null,
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T17:28:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504227",
+                                    "name": "Ligerz",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.083763,
+                                        "y": 7.135154
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504228",
+                                    "name": "Twann",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.093658,
+                                        "y": 7.156501
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T17:28:00+0100",
+                                "arrivalTimestamp": 1512404880,
+                                "departure": "2017-12-04T17:29:00+0100",
+                                "departureTimestamp": 1512404940,
+                                "delay": 1,
+                                "platform": null,
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T17:30:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504228",
+                                    "name": "Twann",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.093658,
+                                        "y": 7.156501
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504229",
+                                    "name": "Tüscherz",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.114997,
+                                        "y": 7.197314
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T17:32:00+0100",
+                                "arrivalTimestamp": 1512405120,
+                                "departure": "2017-12-04T17:32:00+0100",
+                                "departureTimestamp": 1512405120,
+                                "delay": 1,
+                                "platform": null,
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T17:33:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504229",
+                                    "name": "Tüscherz",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.114997,
+                                        "y": 7.197314
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504300",
+                                    "name": "Biel/Bienne",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.132893,
+                                        "y": 7.242918
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T17:37:00+0100",
+                                "arrivalTimestamp": 1512405420,
+                                "departure": null,
+                                "departureTimestamp": null,
+                                "delay": 0,
+                                "platform": "10",
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": "2017-12-04T17:37:00+0100",
+                                    "departure": null,
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504300",
+                                    "name": "Biel/Bienne",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.132893,
+                                        "y": 7.242918
+                                    },
+                                    "distance": null
+                                }
+                            }
+                        ],
+                        "capacity1st": null,
+                        "capacity2nd": null
+                    },
+                    "walk": null,
+                    "departure": {
+                        "station": {
+                            "id": "8504221",
+                            "name": "Neuchâtel",
+                            "score": null,
+                            "coordinate": {
+                                "type": "WGS84",
+                                "x": 46.996727,
+                                "y": 6.935713
+                            },
+                            "distance": null
+                        },
+                        "arrival": null,
+                        "arrivalTimestamp": null,
+                        "departure": "2017-12-04T17:06:00+0100",
+                        "departureTimestamp": 1512403560,
+                        "delay": 0,
+                        "platform": "7",
+                        "prognosis": {
+                            "platform": null,
+                            "arrival": null,
+                            "departure": "2017-12-04T17:06:00+0100",
+                            "capacity1st": null,
+                            "capacity2nd": null
+                        },
+                        "realtimeAvailability": null,
+                        "location": {
+                            "id": "8504221",
+                            "name": "Neuchâtel",
+                            "score": null,
+                            "coordinate": {
+                                "type": "WGS84",
+                                "x": 46.996727,
+                                "y": 6.935713
+                            },
+                            "distance": null
+                        }
+                    },
+                    "arrival": {
+                        "station": {
+                            "id": "8504300",
+                            "name": "Biel/Bienne",
+                            "score": null,
+                            "coordinate": {
+                                "type": "WGS84",
+                                "x": 47.132893,
+                                "y": 7.242918
+                            },
+                            "distance": null
+                        },
+                        "arrival": "2017-12-04T17:37:00+0100",
+                        "arrivalTimestamp": 1512405420,
+                        "departure": null,
+                        "departureTimestamp": null,
+                        "delay": 0,
+                        "platform": "10",
+                        "prognosis": {
+                            "platform": null,
+                            "arrival": "2017-12-04T17:37:00+0100",
+                            "departure": null,
+                            "capacity1st": null,
+                            "capacity2nd": null
+                        },
+                        "realtimeAvailability": null,
+                        "location": {
+                            "id": "8504300",
+                            "name": "Biel/Bienne",
+                            "score": null,
+                            "coordinate": {
+                                "type": "WGS84",
+                                "x": 47.132893,
+                                "y": 7.242918
+                            },
+                            "distance": null
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "from": {
+                "station": {
+                    "id": "8504221",
+                    "name": "Neuchâtel",
+                    "score": null,
+                    "coordinate": {
+                        "type": "WGS84",
+                        "x": 46.996727,
+                        "y": 6.935713
+                    },
+                    "distance": null
+                },
+                "arrival": null,
+                "arrivalTimestamp": null,
+                "departure": "2017-12-04T17:27:00+0100",
+                "departureTimestamp": 1512404820,
+                "delay": 0,
+                "platform": "4",
+                "prognosis": {
+                    "platform": null,
+                    "arrival": null,
+                    "departure": "2017-12-04T17:27:00+0100",
+                    "capacity1st": null,
+                    "capacity2nd": null
+                },
+                "realtimeAvailability": null,
+                "location": {
+                    "id": "8504221",
+                    "name": "Neuchâtel",
+                    "score": null,
+                    "coordinate": {
+                        "type": "WGS84",
+                        "x": 46.996727,
+                        "y": 6.935713
+                    },
+                    "distance": null
+                }
+            },
+            "to": {
+                "station": {
+                    "id": "8504300",
+                    "name": "Biel/Bienne",
+                    "score": null,
+                    "coordinate": {
+                        "type": "WGS84",
+                        "x": 47.132893,
+                        "y": 7.242918
+                    },
+                    "distance": null
+                },
+                "arrival": "2017-12-04T17:43:00+0100",
+                "arrivalTimestamp": 1512405780,
+                "departure": null,
+                "departureTimestamp": null,
+                "delay": null,
+                "platform": "4",
+                "prognosis": {
+                    "platform": null,
+                    "arrival": null,
+                    "departure": null,
+                    "capacity1st": null,
+                    "capacity2nd": null
+                },
+                "realtimeAvailability": null,
+                "location": {
+                    "id": "8504300",
+                    "name": "Biel/Bienne",
+                    "score": null,
+                    "coordinate": {
+                        "type": "WGS84",
+                        "x": 47.132893,
+                        "y": 7.242918
+                    },
+                    "distance": null
+                }
+            },
+            "duration": "00d00:16:00",
+            "transfers": 0,
+            "service": null,
+            "products": [
+                "ICN"
+            ],
+            "capacity1st": null,
+            "capacity2nd": null,
+            "sections": [
+                {
+                    "journey": {
+                        "name": "ICN 531",
+                        "category": "ICN",
+                        "subcategory": null,
+                        "categoryCode": null,
+                        "number": "ICN 531",
+                        "operator": "SBB",
+                        "to": "Zürich HB",
+                        "passList": [
+                            {
+                                "station": {
+                                    "id": "8504221",
+                                    "name": "Neuchâtel",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 46.996727,
+                                        "y": 6.935713
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": null,
+                                "arrivalTimestamp": null,
+                                "departure": "2017-12-04T17:27:00+0100",
+                                "departureTimestamp": 1512404820,
+                                "delay": 0,
+                                "platform": "4",
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": null,
+                                    "departure": "2017-12-04T17:27:00+0100",
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504221",
+                                    "name": "Neuchâtel",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 46.996727,
+                                        "y": 6.935713
+                                    },
+                                    "distance": null
+                                }
+                            },
+                            {
+                                "station": {
+                                    "id": "8504300",
+                                    "name": "Biel/Bienne",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.132893,
+                                        "y": 7.242918
+                                    },
+                                    "distance": null
+                                },
+                                "arrival": "2017-12-04T17:43:00+0100",
+                                "arrivalTimestamp": 1512405780,
+                                "departure": null,
+                                "departureTimestamp": null,
+                                "delay": 0,
+                                "platform": "3",
+                                "prognosis": {
+                                    "platform": null,
+                                    "arrival": "2017-12-04T17:43:00+0100",
+                                    "departure": null,
+                                    "capacity1st": null,
+                                    "capacity2nd": null
+                                },
+                                "realtimeAvailability": null,
+                                "location": {
+                                    "id": "8504300",
+                                    "name": "Biel/Bienne",
+                                    "score": null,
+                                    "coordinate": {
+                                        "type": "WGS84",
+                                        "x": 47.132893,
+                                        "y": 7.242918
+                                    },
+                                    "distance": null
+                                }
+                            }
+                        ],
+                        "capacity1st": null,
+                        "capacity2nd": null
+                    },
+                    "walk": null,
+                    "departure": {
+                        "station": {
+                            "id": "8504221",
+                            "name": "Neuchâtel",
+                            "score": null,
+                            "coordinate": {
+                                "type": "WGS84",
+                                "x": 46.996727,
+                                "y": 6.935713
+                            },
+                            "distance": null
+                        },
+                        "arrival": null,
+                        "arrivalTimestamp": null,
+                        "departure": "2017-12-04T17:27:00+0100",
+                        "departureTimestamp": 1512404820,
+                        "delay": 0,
+                        "platform": "4",
+                        "prognosis": {
+                            "platform": null,
+                            "arrival": null,
+                            "departure": "2017-12-04T17:27:00+0100",
+                            "capacity1st": null,
+                            "capacity2nd": null
+                        },
+                        "realtimeAvailability": null,
+                        "location": {
+                            "id": "8504221",
+                            "name": "Neuchâtel",
+                            "score": null,
+                            "coordinate": {
+                                "type": "WGS84",
+                                "x": 46.996727,
+                                "y": 6.935713
+                            },
+                            "distance": null
+                        }
+                    },
+                    "arrival": {
+                        "station": {
+                            "id": "8504300",
+                            "name": "Biel/Bienne",
+                            "score": null,
+                            "coordinate": {
+                                "type": "WGS84",
+                                "x": 47.132893,
+                                "y": 7.242918
+                            },
+                            "distance": null
+                        },
+                        "arrival": "2017-12-04T17:43:00+0100",
+                        "arrivalTimestamp": 1512405780,
+                        "departure": null,
+                        "departureTimestamp": null,
+                        "delay": 0,
+                        "platform": "3",
+                        "prognosis": {
+                            "platform": null,
+                            "arrival": "2017-12-04T17:43:00+0100",
+                            "departure": null,
+                            "capacity1st": null,
+                            "capacity2nd": null
+                        },
+                        "realtimeAvailability": null,
+                        "location": {
+                            "id": "8504300",
+                            "name": "Biel/Bienne",
+                            "score": null,
+                            "coordinate": {
+                                "type": "WGS84",
+                                "x": 47.132893,
+                                "y": 7.242918
+                            },
+                            "distance": null
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "from": {
+        "id": "8504221",
+        "name": "Neuchâtel",
+        "score": null,
+        "coordinate": {
+            "type": "WGS84",
+            "x": 46.996727,
+            "y": 6.935713
+        },
+        "distance": null
+    },
+    "to": {
+        "id": "8504300",
+        "name": "Biel/Bienne",
+        "score": null,
+        "coordinate": {
+            "type": "WGS84",
+            "x": 47.132893,
+            "y": 7.242918
+        },
+        "distance": null
+    },
+    "stations": {
+        "from": [
+            {
+                "id": "8504221",
+                "name": "Neuchâtel",
+                "score": null,
+                "coordinate": {
+                    "type": "WGS84",
+                    "x": 46.996727,
+                    "y": 6.935713
+                },
+                "distance": null
+            }
+        ],
+        "to": [
+            {
+                "id": "8504300",
+                "name": "Biel/Bienne",
+                "score": null,
+                "coordinate": {
+                    "type": "WGS84",
+                    "x": 47.132893,
+                    "y": 7.242918
+                },
+                "distance": null
+            }
+        ]
+    }
+}
