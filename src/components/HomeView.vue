@@ -24,7 +24,14 @@
                   </div>
                   <div v-for="connection in connection_list" >
                     <div v-bind:id="connection.id" class="mdl-list__item mdl-button mdl-js-button  mdl-js-ripple-effect accordion">
-                      {{ connection.departure}} - {{ connection.arrival }}<span id="late_stamp" v-if="connection.all_others_info.from.delay > 0"><i class="material-icons">watch_later</i> {{connection.all_others_info.from.delay}}mn</span><i class="material-icons mdl-accordion__icon">expand_more</i>
+                      <span>{{ connection.departure}} - {{ connection.arrival }}</span>
+                      <!-- <span class="stamp update-stamp">
+                        <i class="material-icons">check_circle</i>
+                      </span> -->
+                      <span class="stamp late-stamp" v-if="connection.all_others_info.from.delay > 0">
+                        <i class="material-icons">watch_later</i> {{connection.all_others_info.from.delay}}mn
+                      </span>
+                      <i class="material-icons mdl-accordion__icon">expand_more</i>
                     </div>
                     <div class="panel">
                       <button type="button" @click="remove(connection)" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
@@ -39,6 +46,10 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="mdl-cell mdl-cell--12-col toolbar-section">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="submitConnection" type="button" @click="onTest" name="submit"><i class="material-icons">add</i> Add to favorites</button>
         </div>
 
         <div id="connection_results" class="table-responsive">
@@ -103,6 +114,7 @@ export default {
       connections: [],
       connectionsUpdate: [],
       connectionsSorted: {},
+      connectionsUpdated: [],
       preStyle: {
         background: '#f2f2f2',
         fontFamily: 'monospace',
@@ -116,8 +128,23 @@ export default {
   mounted: function () {
     this.update()
   },
+  // updated: function () {
+  //   alert('call updated')
+  //   var self = this
+  //   for (var id in self.connectionsUpdated) {
+  //     if (self.connectionsUpdated.hasOwnProperty(id)) {
+  //       alert('Key is ' + id + ', value is' + self.connectionsUpdated[id])
+  //       $('#' + id + ' .update-stamp').delay(1000).fadeOut(400)
+  //     }
+  //   }
+  //   self.connectionsUpdated = []
+  // },
   // Définissez les méthodes de l'objet
   methods: {
+    onTest () {
+      alert('dedans')
+      this.connectionsSorted[0].location_from = 'Bonjour'
+    },
     sortConnections (connectionArray) {
       var connectionsSorted = {}
       $(connectionArray).each(function (i, connection) {
@@ -140,12 +167,16 @@ export default {
     update () {
       var self = this
       this.$db.connections.orderBy('location_from').toArray().then(function (tab) {
-        // Si on est connecté à Internet
+        // UPDATE DES TRAJETS
+        // Si on est connecté à Internetl
         if (navigator.onLine) {
           // Parcourt les trajets favoris
           $(tab).each(function (i, connection) {
+            var timeSinceLastUpdate = self.calcTimeSinceLastUpdate(connection)
+            var timeBetweenUpdates = self.calcTimeBetweenUpdates(connection)
+
             // Si la derniere update date d'assez longtemps
-            if (moment.duration(moment().diff(moment(connection.updated_at))).asMinutes() > 1) {
+            if (timeSinceLastUpdate > timeBetweenUpdates) {
               // Requete pour update sur trajet
               $.get('https://transport.opendata.ch/v1/connections', {limit: 1, from: connection.location_from, to: connection.location_to, time: connection.departure}, function (data) {
                 self.connectionsUpdate = JSON.stringify(data, null, 4)
@@ -162,6 +193,8 @@ export default {
                 self.$db.connections.put(connection).then(function (updated) {
                   if (updated) {
                     console.log('Updated')
+                    // $('#' + connection.id + ' .update-stamp').delay(1000).fadeOut(400)
+                    alert('update fade')
                   } else {
                     console.log('Not updated')
                   }
@@ -180,6 +213,36 @@ export default {
       // Pour éviter que l'accordéon suivant celui supprimé s'ouvre à sa place
       $('#' + connection.id).toggleClass('active').next().toggleClass('show')
       this.$db.connections.where('id').equals(connection.id).delete().then(() => this.update())
+    },
+    calcTimeBetweenUpdates (connection) {
+      // Temps restant avant le départ
+      var timeLeft = moment.duration(moment(connection.departure, 'HH:mm').diff(moment(moment(), 'HH:mm'))).asMinutes()
+      // Temps du trajet
+      var travelDuration = moment.duration(moment(connection.arrival, 'HH:mm').diff(moment(connection.departure, 'HH:mm'))).asMinutes()
+
+      if (timeLeft > 60) {
+        // Temps d'attente par défaut entre les updates
+        var timeBetweenUpdate = 60
+      } else if (timeLeft <= 60 && timeLeft > 20) {
+        // Entre 60 et 20mn à l'avance
+        timeBetweenUpdate = 10
+      } else if (timeLeft <= 20 && timeLeft > -travelDuration - 5) {
+        // Entre 20mn d'avance et la durée du trajet un peu augmentée
+        timeBetweenUpdate = 1
+      } else {
+        // Le trajet est terminé et arrivé
+        timeBetweenUpdate = Number.MAX_SAFE_INTEGER
+      }
+
+      // alert(moment(connection.departure, 'HH:mm'))
+      // alert(timeBetweenUpdate)
+      // alert(timeLeft)
+      // alert(travelDuration)
+      // alert(moment.duration(moment().diff(moment(connection.updated_at))).asMinutes())
+      return timeBetweenUpdate
+    },
+    calcTimeSinceLastUpdate (connection) {
+      return moment.duration(moment().diff(moment(connection.updated_at))).asMinutes()
     }
   }
 }
@@ -188,7 +251,7 @@ export default {
 
 <style scoped>
 
-#late_stamp{
+.stamp{
   margin-left: 20px;
 }
 

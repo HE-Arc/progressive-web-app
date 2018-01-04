@@ -177,7 +177,7 @@ export default {
 
       $.get('https://transport.opendata.ch/v1/connections', {from: this.location_from, to: this.location_to, time: this.time}, function (data) {
         // Import de données factices -------
-        data = self.fakedata
+        // data = self.fakedata
         // Fin import -----------------------
 
         self.preContent = JSON.stringify(data, null, 4)
