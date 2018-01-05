@@ -9,7 +9,7 @@
 
         <div class="mdl-cell mdl-cell--12-col">
 
-          <div class="space"></div>
+          <!-- <div class="space"></div> -->
           <div class="mdl-card main-card">
             <!-- <div class="mdl-card__title">
               <h2 class="mdl-card__title-text">Your favourite routes</h2>
@@ -36,30 +36,47 @@
                     </div>
                     <div class="panel">
 
-                      <p>From : <b>{{connection.all_others_info.from.location.name}}</b> at <b>{{getHoursMinutes(connection.all_others_info.from.departure)}}</b> in <b>platform {{connection.all_others_info.from.platform}}</b></p>
-                      <p>To : <b>{{connection.all_others_info.to.location.name}}</b> at <b>{{getHoursMinutes(connection.all_others_info.to.arrival)}}</b> in <b>platform {{connection.all_others_info.to.platform}}</b></p>
-                      <hr>
-                      <div v-for="(section, index) in connection.all_others_info.sections">
-                        <p>
-                          {{index+1}}.A / Departure from {{section.departure.location.name}} at {{getHoursMinutes(section.departure.departure)}} in platform {{section.departure.platform}}
-                          <span class="stamp late-stamp" v-if="section.departure.delay > 0">
-                            <i class="material-icons">watch_later</i> {{section.departure.delay}}mn
-                          </span>
-                        </p>
-                        <p>
-                          {{index+1}}.B / Arrival in {{section.arrival.location.name}} at {{getHoursMinutes(section.arrival.arrival)}} in platform {{section.arrival.platform}}
-                          <span class="stamp late-stamp" v-if="section.arrival.delay > 0">
-                            <i class="material-icons">watch_later</i> {{section.arrival.delay}}mn
-                          </span>
-                        </p>
+                      <div class="toolbar-section">
+                        <button type="button" @click="remove(connection)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+                          <i class="material-icons">delete</i>
+                        </button>
                       </div>
 
-                      <!-- <ul class="mdl-list">
-                        <li v-for="value in connection" class="mdl-list__item"><span class="mdl-list__item-primary-content">{{value}}</span></li>
-                      </ul> -->
-                      <button type="button" @click="remove(connection)" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
-                        <i class="material-icons">delete</i>
-                      </button>
+                      <!-- <p>From : <b>{{connection.all_others_info.from.location.name}}</b> at <b>{{getHoursMinutes(connection.all_others_info.from.departure)}}</b> in <b>platform {{connection.all_others_info.from.platform}}</b></p>
+                      <p>To : <b>{{connection.all_others_info.to.location.name}}</b> at <b>{{getHoursMinutes(connection.all_others_info.to.arrival)}}</b> in <b>platform {{connection.all_others_info.to.platform}}</b></p> -->
+                      <div class="travel-route">
+                        <ul v-for="(section, index) in connection.all_others_info.sections" class="mdl-list travel-transfer-list">
+                          <li  class="mdl-list__item mdl-list__item--two-line">
+                            <span class="mdl-list__item-primary-content">
+                              <i class="material-icons mdl-list__item-avatar">train</i>
+                              <span>{{section.departure.location.name}}</span>
+                              <span class="mdl-list__item-sub-title">At {{getHoursMinutes(section.departure.departure)}} on platform {{section.departure.platform}}</span>
+                            </span>
+                            <span class="mdl-list__item-secondary-content">
+                              <span class="mdl-list__item-secondary-action">
+                                <span class="mdl-chip" v-if="section.departure.delay > 0">
+                                  <span class="mdl-chip__text"><i class="material-icons">watch_later</i> {{section.departure.delay}}mn</span>
+                                </span>
+                              </span>
+                            </span>
+                          </li>
+                          <li  class="mdl-list__item mdl-list__item--two-line">
+                            <span class="mdl-list__item-primary-content">
+                              <i class="material-icons mdl-list__item-avatar">arrow_forward</i>
+                              <span>{{section.arrival.location.name}}</span>
+                              <span class="mdl-list__item-sub-title">At {{getHoursMinutes(section.arrival.arrival)}} on platform {{section.arrival.platform}}</span>
+                            </span>
+                            <span class="mdl-list__item-secondary-content">
+                              <span class="mdl-list__item-secondary-action">
+                                <span class="mdl-chip" v-if="section.arrival.delay > 0">
+                                  <span class="mdl-chip__text"><i class="material-icons">watch_later</i> {{section.arrival.delay}}mn</span>
+                                </span>
+                              </span>
+                            </span>
+                          </li>
+                        </ul>
+
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -280,7 +297,45 @@ export default {
 
 <style scoped>
 
+.mdl-chip__text .material-icons{
+  vertical-align: middle;
+}
 
+.mdl-list__item-secondary-content{
+  align-items: flex-start;
+}
+
+.toolbar-section {
+    margin-top: 15px;
+    text-align: right;
+    float: right;
+}
+
+.mdl-list__item-secondary-content{
+  color: rgb(233,30,99);
+}
+
+.travel-transfer-list{
+  padding: 0px;
+}
+
+.travel-transfer-list:last-child .mdl-list__item:last-child,
+.travel-transfer-list:last-child .mdl-list__item:last-child .mdl-list__item-sub-title,
+.travel-transfer-list:first-child .mdl-list__item:first-child,
+.travel-transfer-list:first-child .mdl-list__item:first-child .mdl-list__item-sub-title {
+  font-weight: bold;
+}
+
+
+.mdl-list .mdl-list__item.mdl-list__item--two-line{
+  margin-top: 0px;
+  padding: 2px;
+  height: 60px;
+}
+
+.mdl-list__item-avatar{
+  border-radius: 15%;
+}
 
 .stamp{
   margin-left: 10px;
@@ -380,7 +435,7 @@ div.panel {
 
 div.panel.show {
 	opacity: 1;
-	max-height: 500px;
+	max-height: 800px;
  padding: 15px 18px;
 }
 
