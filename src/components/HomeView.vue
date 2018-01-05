@@ -23,23 +23,43 @@
                     <span><b>DE </b> {{ departure_location }} <b> A </b> {{ arrival_location }}</span>
                   </div>
                   <div v-for="connection in connection_list" >
-                    <div v-bind:id="connection.id" class="mdl-list__item mdl-button mdl-js-button  mdl-js-ripple-effect accordion">
-                      <span>{{ connection.departure}} - {{ connection.arrival }}</span>
-                      <!-- <span class="stamp update-stamp">
+                    <div v-bind:id="connection.id" class="connection mdl-list__item mdl-button mdl-js-button  mdl-js-ripple-effect accordion">
+                      <span class="connection-time">{{ connection.departure}} - {{ connection.arrival }}</span>
+                      <span class="stamp update-stamp" v-if="Math.abs(calcTimeBetweenLastUpdateMethodCallAndLastConnectionUpdate(connection)) < 1">
                         <i class="material-icons">check_circle</i>
-                      </span> -->
+                      </span>
+                      <span class="small-text">Updated {{calcTimeFrom(connection)}}</span>
                       <span class="stamp late-stamp" v-if="connection.all_others_info.from.delay > 0">
                         <i class="material-icons">watch_later</i> {{connection.all_others_info.from.delay}}mn
                       </span>
                       <i class="material-icons mdl-accordion__icon">expand_more</i>
                     </div>
                     <div class="panel">
+
+                      <p>From : <b>{{connection.all_others_info.from.location.name}}</b> at <b>{{getHoursMinutes(connection.all_others_info.from.departure)}}</b> in <b>platform {{connection.all_others_info.from.platform}}</b></p>
+                      <p>To : <b>{{connection.all_others_info.to.location.name}}</b> at <b>{{getHoursMinutes(connection.all_others_info.to.arrival)}}</b> in <b>platform {{connection.all_others_info.to.platform}}</b></p>
+                      <hr>
+                      <div v-for="(section, index) in connection.all_others_info.sections">
+                        <p>
+                          {{index+1}}.A / Departure from {{section.departure.location.name}} at {{getHoursMinutes(section.departure.departure)}} in platform {{section.departure.platform}}
+                          <span class="stamp late-stamp" v-if="section.departure.delay > 0">
+                            <i class="material-icons">watch_later</i> {{section.departure.delay}}mn
+                          </span>
+                        </p>
+                        <p>
+                          {{index+1}}.B / Arrival in {{section.arrival.location.name}} at {{getHoursMinutes(section.arrival.arrival)}} in platform {{section.arrival.platform}}
+                          <span class="stamp late-stamp" v-if="section.arrival.delay > 0">
+                            <i class="material-icons">watch_later</i> {{section.arrival.delay}}mn
+                          </span>
+                        </p>
+                      </div>
+
+                      <!-- <ul class="mdl-list">
+                        <li v-for="value in connection" class="mdl-list__item"><span class="mdl-list__item-primary-content">{{value}}</span></li>
+                      </ul> -->
                       <button type="button" @click="remove(connection)" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
                         <i class="material-icons">delete</i>
                       </button>
-                      <ul class="mdl-list">
-                        <li v-for="value in connection" class="mdl-list__item"><span class="mdl-list__item-primary-content">{{value}}</span></li>
-                      </ul>
                     </div>
                   </div>
                 </div>
@@ -48,7 +68,7 @@
           </div>
         </div>
 
-        <div class="mdl-cell mdl-cell--12-col toolbar-section">
+        <!-- <div class="mdl-cell mdl-cell--12-col toolbar-section">
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="submitConnection" type="button" @click="onTest" name="submit"><i class="material-icons">add</i> Add to favorites</button>
         </div>
 
@@ -73,7 +93,7 @@
                   </tr>
                 </tbody>
             </table>
-        </div>
+        </div> -->
 
         <!-- <h1>Sorted</h1>
         <pre v-if="connectionsSorted" :style="preStyle">
@@ -81,11 +101,11 @@
             {{ connectionsSorted }}
         </pre> -->
 
-        <h1>Update</h1>
+        <!-- <h1>Update</h1>
         <pre v-if="connectionsUpdate" :style="preStyle">
             <b>Selected Data:</b>
             {{ connectionsUpdate }}
-        </pre>
+        </pre> -->
 
         <!-- <h1>Raw</h1>
         <pre v-if="connections" :style="preStyle">
@@ -114,7 +134,7 @@ export default {
       connections: [],
       connectionsUpdate: [],
       connectionsSorted: {},
-      connectionsUpdated: [],
+      lastUpdateMethodCall: new Date(),
       preStyle: {
         background: '#f2f2f2',
         fontFamily: 'monospace',
@@ -166,14 +186,15 @@ export default {
     },
     update () {
       var self = this
+      this.lastUpdate = new Date()
       this.$db.connections.orderBy('location_from').toArray().then(function (tab) {
         // UPDATE DES TRAJETS
         // Si on est connecté à Internetl
         if (navigator.onLine) {
           // Parcourt les trajets favoris
           $(tab).each(function (i, connection) {
-            var timeSinceLastUpdate = self.calcTimeSinceLastUpdate(connection)
-            var timeBetweenUpdates = self.calcTimeBetweenUpdates(connection)
+            var timeSinceLastUpdate = self.calcTimeSinceLastConnectionUpdate(connection)
+            var timeBetweenUpdates = self.calcTimeBetweenConnectionUpdates(connection)
 
             // Si la derniere update date d'assez longtemps
             if (timeSinceLastUpdate > timeBetweenUpdates) {
@@ -194,7 +215,6 @@ export default {
                   if (updated) {
                     console.log('Updated')
                     // $('#' + connection.id + ' .update-stamp').delay(1000).fadeOut(400)
-                    alert('update fade')
                   } else {
                     console.log('Not updated')
                   }
@@ -214,7 +234,7 @@ export default {
       $('#' + connection.id).toggleClass('active').next().toggleClass('show')
       this.$db.connections.where('id').equals(connection.id).delete().then(() => this.update())
     },
-    calcTimeBetweenUpdates (connection) {
+    calcTimeBetweenConnectionUpdates (connection) {
       // Temps restant avant le départ
       var timeLeft = moment.duration(moment(connection.departure, 'HH:mm').diff(moment(moment(), 'HH:mm'))).asMinutes()
       // Temps du trajet
@@ -241,8 +261,17 @@ export default {
       // alert(moment.duration(moment().diff(moment(connection.updated_at))).asMinutes())
       return timeBetweenUpdate
     },
-    calcTimeSinceLastUpdate (connection) {
+    calcTimeSinceLastConnectionUpdate (connection) {
       return moment.duration(moment().diff(moment(connection.updated_at))).asMinutes()
+    },
+    calcTimeBetweenLastUpdateMethodCallAndLastConnectionUpdate (connection) {
+      return moment.duration(moment(connection.updated_at).diff(moment(this.lastUpdateMethodCall))).asMinutes()
+    },
+    calcTimeFrom (connection) {
+      return moment(connection.updated_at).fromNow()
+    },
+    getHoursMinutes (time) {
+      return moment(time).format('HH:mm')
     }
   }
 }
@@ -251,8 +280,24 @@ export default {
 
 <style scoped>
 
+
+
 .stamp{
-  margin-left: 20px;
+  margin-left: 10px;
+}
+
+.connection:first-child .stamp{
+  margin-left: 5px;
+}
+
+.small-text{
+  font-size: 13px;
+  color: rgb(171, 171, 171);
+  padding-left: 5px;
+}
+
+.connection-time{
+  margin-right: 10px;
 }
 
 .mdl-card__title{
@@ -320,6 +365,10 @@ export default {
   color:white;
 }
 
+.accordion:hover .small-text, .accordion.active .small-text{
+  color:white;
+}
+
 div.panel {
 	padding: 0 18px;
 	background-color: #fff;
@@ -332,6 +381,7 @@ div.panel {
 div.panel.show {
 	opacity: 1;
 	max-height: 500px;
+ padding: 15px 18px;
 }
 
 </style>
