@@ -1,54 +1,46 @@
 <template>
-    <div id="app" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        <header class="mdl-layout__header">
-            <div class="mdl-layout__header-row">
-                <span class="mdl-layout-title"><router-link id="btn_home" to="/">NextStop</router-link></span>
-                <!-- Add spacer, to align navigation to the right -->
-                <div class="mdl-layout-spacer"></div>
-                <nav class="mdl-navigation">
-                    <router-link class="mdl-navigation__link" to="/add">
-                        <i id="btn_add" class="material-icons">add</i>
-                        <span class="mdl-tooltip" data-mdl-for="btn_add">
-                            Add a new travel
-                        </span>
-                    </router-link>
-                    <a href="" id="refresh_button_link" class="mdl-navigation__link" v-on:click="refreshPage">
-                        <i id="btn_refresh" class="material-icons">refresh</i>
-                        <span class="mdl-tooltip" data-mdl-for="btn_refresh">
-                            Refresh data
-                        </span>
-                    </a>
-                    <router-link class="mdl-navigation__link" to="/settings">
-                        <i id="btn_settings" class="material-icons">settings</i>
-                        <span class="mdl-tooltip" data-mdl-for="btn_settings">
-                            Update settings
-                        </span>
-                    </router-link>
-                </nav>
-            </div>
-        </header>
-        <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title">NextStop</span>
-            <nav class="mdl-navigation">
-                <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu"><i class="material-icons">home</i>  Home</router-link>
-                <router-link class="mdl-navigation__link" to="/add" @click.native="hideMenu"><i class="material-icons">add</i>  Add</router-link>
-                <router-link class="mdl-navigation__link" to="/settings" @click.native="hideMenu"><i class="material-icons">settings</i>  Settings</router-link>
-            </nav>
-        </div>
-        <main class="mdl-layout__content">
-            <div class="page-content">
-                <transition name="fade"  mode="out-in">
-                    <router-view></router-view>
-                </transition>
-            </div>
-        </main>
-        <footer>
-            <div aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
-                <div class="mdl-snackbar__text"></div>
-                <button type="button" class="mdl-snackbar__action"></button>
-            </div>
-        </footer>
-    </div>
+  <div id="app" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title"><router-link id="btn_home" to="/">NextStop</router-link></span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+          <router-link class="mdl-navigation__link" to="/">
+            <i id="btn_home_2" class="material-icons">star</i>
+            <span class="mdl-tooltip" data-mdl-for="btn_home_2">
+              Your routes
+            </span>
+          </router-link>
+          <router-link class="mdl-navigation__link" to="/add">
+            <i id="btn_add" class="material-icons">add</i>
+            <span class="mdl-tooltip" data-mdl-for="btn_add">
+              Add a new travel
+            </span>
+          </router-link>
+          <a href="" id="refresh_button_link" class="mdl-navigation__link" v-on:click="refreshPage">
+            <i id="btn_refresh" class="material-icons">refresh</i>
+            <span class="mdl-tooltip" data-mdl-for="btn_refresh">
+              Refresh data
+            </span>
+          </a>
+        </nav>
+      </div>
+    </header>
+    <main class="mdl-layout__content">
+      <div class="page-content">
+        <transition name="fade"  mode="out-in">
+          <router-view></router-view>
+        </transition>
+      </div>
+    </main>
+    <footer>
+      <div aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button type="button" class="mdl-snackbar__action"></button>
+      </div>
+    </footer>
+  </div>
 </template>
 
 <script>
@@ -111,6 +103,7 @@ export default {
         min-height: .01%;
         overflow-x: auto;
     }
+
     @media screen and (max-width: 767px) {
         .table-responsive {
             width: 100%;
@@ -155,6 +148,16 @@ export default {
         .table-responsive > .table-bordered > tfoot > tr:last-child > td {
             border-bottom: 0;
         }
+    }
+
+    @media screen and (max-width: 1024px){
+      .mdl-layout__header-row {
+        padding: 0 16px 0 25px;
+      }
+    }
+
+    .mdl-layout__header-row {
+      padding: 0 16px 0 25px;
     }
 
 

@@ -1,82 +1,73 @@
 <template>
-    <div class="mdl-grid">
-      <div class="mdl-cell mdl-cell--3-col mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
-      <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--3-col mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
+    <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
 
-        <div class="mdl-cell mdl-cell--12-col">
-            <h1>Home</h1>
-        </div>
+      <div class="mdl-cell mdl-cell--12-col">
+        <h1>Your favorite routes</h1>
+      </div>
 
-        <div class="mdl-cell mdl-cell--12-col">
+      <div class="mdl-cell mdl-cell--12-col">
+        <div v-if="Object.keys(connectionsSorted).length > 0" class="mdl-card main-card">
+          <div class="mdl-card__supporting-text">
 
-          <!-- <div class="space"></div> -->
-          <div class="mdl-card main-card">
-            <!-- <div class="mdl-card__title">
-              <h2 class="mdl-card__title-text">Your favourite routes</h2>
-            </div> -->
-            <div class="mdl-card__supporting-text">
+            <div v-for="(arrival_list, departure_location) in connectionsSorted">
+              <div v-for="(connection_list, arrival_location) in arrival_list"  class="mdl-list">
 
-              <div v-for="(arrival_list, departure_location) in connectionsSorted">
-                <div v-for="(connection_list, arrival_location) in arrival_list"  class="mdl-list">
-
-                  <div class="mdl-list__item title-accordion mdl-button mdl-js-button">
-                    <span><b>DE </b> {{ departure_location }} <b> A </b> {{ arrival_location }}</span>
+                <div class="mdl-list__item title-accordion mdl-button mdl-js-button">
+                  <span><b>DE </b> {{ departure_location }} <b> A </b> {{ arrival_location }}</span>
+                </div>
+                <div v-for="connection in connection_list" >
+                  <div v-bind:id="connection.id" class="connection mdl-list__item mdl-button mdl-js-button  mdl-js-ripple-effect accordion">
+                    <span class="connection-time">{{ connection.departure}} - {{ connection.arrival }}</span>
+                    <span class="stamp update-stamp" v-if="Math.abs(calcTimeBetweenLastUpdateMethodCallAndLastConnectionUpdate(connection)) < 1">
+                      <i class="material-icons">check_circle</i>
+                    </span>
+                    <span class="small-text">Updated {{calcTimeFrom(connection)}}</span>
+                    <span class="stamp late-stamp" v-if="connection.all_others_info.from.delay > 0">
+                      <i class="material-icons">watch_later</i> {{connection.all_others_info.from.delay}}mn
+                    </span>
+                    <i class="material-icons mdl-accordion__icon">expand_more</i>
                   </div>
-                  <div v-for="connection in connection_list" >
-                    <div v-bind:id="connection.id" class="connection mdl-list__item mdl-button mdl-js-button  mdl-js-ripple-effect accordion">
-                      <span class="connection-time">{{ connection.departure}} - {{ connection.arrival }}</span>
-                      <span class="stamp update-stamp" v-if="Math.abs(calcTimeBetweenLastUpdateMethodCallAndLastConnectionUpdate(connection)) < 1">
-                        <i class="material-icons">check_circle</i>
-                      </span>
-                      <span class="small-text">Updated {{calcTimeFrom(connection)}}</span>
-                      <span class="stamp late-stamp" v-if="connection.all_others_info.from.delay > 0">
-                        <i class="material-icons">watch_later</i> {{connection.all_others_info.from.delay}}mn
-                      </span>
-                      <i class="material-icons mdl-accordion__icon">expand_more</i>
+                  <div class="panel">
+                    <div class="toolbar-section">
+                      <button type="button" @click="remove(connection)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+                        <i class="material-icons">delete</i>
+                      </button>
                     </div>
-                    <div class="panel">
-
-                      <div class="toolbar-section">
-                        <button type="button" @click="remove(connection)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
-                          <i class="material-icons">delete</i>
-                        </button>
-                      </div>
-
-                      <!-- <p>From : <b>{{connection.all_others_info.from.location.name}}</b> at <b>{{getHoursMinutes(connection.all_others_info.from.departure)}}</b> in <b>platform {{connection.all_others_info.from.platform}}</b></p>
-                      <p>To : <b>{{connection.all_others_info.to.location.name}}</b> at <b>{{getHoursMinutes(connection.all_others_info.to.arrival)}}</b> in <b>platform {{connection.all_others_info.to.platform}}</b></p> -->
-                      <div class="travel-route">
-                        <ul v-for="(section, index) in connection.all_others_info.sections" class="mdl-list travel-transfer-list">
-                          <li  class="mdl-list__item mdl-list__item--two-line">
-                            <span class="mdl-list__item-primary-content">
-                              <i class="material-icons mdl-list__item-avatar">train</i>
-                              <span>{{section.departure.location.name}}</span>
-                              <span class="mdl-list__item-sub-title">At {{getHoursMinutes(section.departure.departure)}} on platform {{section.departure.platform}}</span>
-                            </span>
-                            <span class="mdl-list__item-secondary-content">
-                              <span class="mdl-list__item-secondary-action">
-                                <span class="mdl-chip" v-if="section.departure.delay > 0">
-                                  <span class="mdl-chip__text"><i class="material-icons">watch_later</i> {{section.departure.delay}}mn</span>
-                                </span>
+                    <!-- <p>From : <b>{{connection.all_others_info.from.location.name}}</b> at <b>{{getHoursMinutes(connection.all_others_info.from.departure)}}</b> in <b>platform {{connection.all_others_info.from.platform}}</b></p>
+                    <p>To : <b>{{connection.all_others_info.to.location.name}}</b> at <b>{{getHoursMinutes(connection.all_others_info.to.arrival)}}</b> in <b>platform {{connection.all_others_info.to.platform}}</b></p> -->
+                    <div class="travel-route">
+                      <ul v-for="(section, index) in connection.all_others_info.sections" class="mdl-list travel-transfer-list">
+                        <li  class="mdl-list__item mdl-list__item--two-line">
+                          <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-avatar">train</i>
+                            <span>{{section.departure.location.name}}</span>
+                            <span class="mdl-list__item-sub-title">At {{getHoursMinutes(section.departure.departure)}} on platform {{section.departure.platform}}</span>
+                          </span>
+                          <span class="mdl-list__item-secondary-content">
+                            <span class="mdl-list__item-secondary-action">
+                              <span class="mdl-chip" v-if="section.departure.delay > 0">
+                                <span class="mdl-chip__text"><i class="material-icons">watch_later</i> {{section.departure.delay}}mn</span>
                               </span>
                             </span>
-                          </li>
-                          <li  class="mdl-list__item mdl-list__item--two-line">
-                            <span class="mdl-list__item-primary-content">
-                              <i class="material-icons mdl-list__item-avatar">arrow_forward</i>
-                              <span>{{section.arrival.location.name}}</span>
-                              <span class="mdl-list__item-sub-title">At {{getHoursMinutes(section.arrival.arrival)}} on platform {{section.arrival.platform}}</span>
-                            </span>
-                            <span class="mdl-list__item-secondary-content">
-                              <span class="mdl-list__item-secondary-action">
-                                <span class="mdl-chip" v-if="section.arrival.delay > 0">
-                                  <span class="mdl-chip__text"><i class="material-icons">watch_later</i> {{section.arrival.delay}}mn</span>
-                                </span>
+                          </span>
+                        </li>
+                        <li  class="mdl-list__item mdl-list__item--two-line">
+                          <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-avatar">arrow_forward</i>
+                            <span>{{section.arrival.location.name}}</span>
+                            <span class="mdl-list__item-sub-title">At {{getHoursMinutes(section.arrival.arrival)}} on platform {{section.arrival.platform}}</span>
+                          </span>
+                          <span class="mdl-list__item-secondary-content">
+                            <span class="mdl-list__item-secondary-action">
+                              <span class="mdl-chip" v-if="section.arrival.delay > 0">
+                                <span class="mdl-chip__text"><i class="material-icons">watch_later</i> {{section.arrival.delay}}mn</span>
                               </span>
                             </span>
-                          </li>
-                        </ul>
-
-                      </div>
+                          </span>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </div>
@@ -84,56 +75,24 @@
             </div>
           </div>
         </div>
-
-        <!-- <div class="mdl-cell mdl-cell--12-col toolbar-section">
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="submitConnection" type="button" @click="onTest" name="submit"><i class="material-icons">add</i> Add to favorites</button>
+        <div v-else>
+          <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">Welcome to NextStop</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              You have currently no favourite routes, you can try to add some.
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              <router-link to="/add" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                Get Started
+              </router-link>
+            </div>
+          </div>
         </div>
-
-        <div id="connection_results" class="table-responsive">
-            <table  class="mdl-data-table mdl-js-data-table mdl-shadow--2dp mdl-cell mdl-cell--12-col">
-                <thead>
-                    <tr>
-                        <th class="mdl-data-table__cell--non-numeric">From</th>
-                        <th class="mdl-data-table__cell--non-numeric">Departure</th>
-                        <th class="mdl-data-table__cell--non-numeric">To</th>
-                        <th class="mdl-data-table__cell--non-numeric">Arrival</th>
-                        <th class="mdl-data-table__cell--non-numeric"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="connection in connections">
-                    <td class="mdl-data-table__cell--non-numeric">{{ connection.location_from }}</td>
-                    <td class="mdl-data-table__cell--non-numeric">{{ connection.departure }}</td>
-                    <td class="mdl-data-table__cell--non-numeric">{{ connection.location_to }}</td>
-                    <td class="mdl-data-table__cell--non-numeric">{{ connection.arrival }}</td>
-                    <td class="mdl-data-table__cell--non-numeric"><button type="button" @click="remove(connection)">&times;</button></td>
-                  </tr>
-                </tbody>
-            </table>
-        </div> -->
-
-        <!-- <h1>Sorted</h1>
-        <pre v-if="connectionsSorted" :style="preStyle">
-            <b>Selected Data:</b>
-            {{ connectionsSorted }}
-        </pre> -->
-
-        <!-- <h1>Update</h1>
-        <pre v-if="connectionsUpdate" :style="preStyle">
-            <b>Selected Data:</b>
-            {{ connectionsUpdate }}
-        </pre> -->
-
-        <!-- <h1>Raw</h1>
-        <pre v-if="connections" :style="preStyle">
-            <b>Selected Data:</b>
-            {{ connections }}
-        </pre> -->
-
-
-
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -297,6 +256,23 @@ export default {
 
 <style scoped>
 
+.mdl-card__supporting-text{
+
+}
+
+.demo-card-wide.mdl-card {
+  width: 100%;
+}
+.demo-card-wide > .mdl-card__title {
+  color: #fff;
+  height: 110px;
+  background-color : rgb(233,30,99);
+  padding-bottom: 12px;
+}
+.demo-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+
 .mdl-chip__text .material-icons{
   vertical-align: middle;
 }
@@ -371,6 +347,9 @@ export default {
   margin-top: 10px;
 }
 
+.mdl-card{
+  min-height: 100px;
+}
 
 .mdl-card, .mdl-card__supporting-text{
   width: auto;
