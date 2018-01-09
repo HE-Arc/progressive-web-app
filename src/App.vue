@@ -2,7 +2,7 @@
   <div id="app" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
-        <span class="mdl-layout-title"><router-link id="btn_home" to="/">NextStop</router-link></span>
+        <span class="mdl-layout-title"><router-link id="btn_home" to="/"><i class="material-icons brand-icon">train</i>NextStop</router-link></span>
         <!-- Add spacer, to align navigation to the right -->
         <div class="mdl-layout-spacer"></div>
         <nav class="mdl-navigation">
@@ -75,7 +75,14 @@ export default {
         font-size: 20px;
         color:#FFF;
         text-decoration: none;
+        line-height: 40px;
+        display: inline-flex;
 
+    }
+
+    .brand-icon{
+      line-height:40px;
+      padding-right: 4px;
     }
 
     .fade-enter-active, .fade-leave-active {
@@ -158,6 +165,8 @@ export default {
 
     .mdl-layout__header-row {
       padding: 0 16px 0 25px;
+      background: rgb(233,30,99);
+
     }
 
 

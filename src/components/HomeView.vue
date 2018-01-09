@@ -24,8 +24,8 @@
                       <i class="material-icons">check_circle</i>
                     </span>
                     <span class="small-text">Updated {{calcTimeFrom(connection)}}</span>
-                    <span class="stamp late-stamp" v-if="connection.all_others_info.from.delay > 0">
-                      <i class="material-icons">watch_later</i> {{connection.all_others_info.from.delay}}mn
+                    <span class="mdl-chip title-chip" v-if="connection.all_others_info.from.delay > 0">
+                      <span class="mdl-chip__text"><i class="material-icons">watch_later</i> {{connection.all_others_info.from.delay}}mn</span>
                     </span>
                     <i class="material-icons mdl-accordion__icon">expand_more</i>
                   </div>
@@ -162,7 +162,7 @@ export default {
     },
     update () {
       var self = this
-      this.lastUpdate = new Date()
+      this.lastUpdateMethodCall = new Date()
       this.$db.connections.orderBy('location_from').toArray().then(function (tab) {
         // UPDATE DES TRAJETS
         // Si on est connecté à Internetl
@@ -256,8 +256,19 @@ export default {
 
 <style scoped>
 
-.mdl-card__supporting-text{
+.title-chip{
+  margin-left: 5px;
+  color : rgb(233,30,99);
+}
 
+.mdl-chip__text{
+  display: inline-flex;
+  line-height: 15px;
+}
+
+.mdl-chip__text .material-icons{
+  line-height: 15px;
+  padding-right: 4px;
 }
 
 .demo-card-wide.mdl-card {
@@ -389,18 +400,18 @@ export default {
 	transition: 0.4s;
 }
 
-.accordion.active {
+.accordion.active, .accordion:hover {
 	background-color: rgb(233,30,99);
   color:white;
 }
 
-.accordion:hover {
-	background-color: rgb(233,30,99);
-  color:white;
-}
 
 .accordion:hover .small-text, .accordion.active .small-text{
   color:white;
+}
+
+.accordion:hover .title-chip,  .accordion.active .title-chip{
+	background-color: white;
 }
 
 div.panel {
