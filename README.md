@@ -52,6 +52,42 @@ Create another file named _.eslintignore_ and add the following content inside i
 build/*.js
 config/*.js
 ```
+Create another file named _.postcssrc.js_ and add the following content inside it.
+``` js
+// https://github.com/michael-ciniawsky/postcss-load-config
+
+module.exports = {
+  "plugins": {
+    // to edit target browsers: use "browserlist" field in package.json
+    "autoprefixer": {}
+  }
+}
+
+```
+
+Create a last file named _.babelrc_ and add the following content inside it.
+``` js
+{
+  "presets": [
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+      }
+    }],
+    "stage-2"
+  ],
+  "plugins": ["transform-runtime"],
+  "env": {
+    "test": {
+      "presets": ["env", "stage-2"],
+      "plugins": [ "istanbul" ]
+    }
+  }
+}
+
+
+```
 ## How to build
 
 ``` bash
