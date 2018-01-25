@@ -118,10 +118,15 @@ serve dist/
 
 ### With Ngrok
 
+To use Ngrok you first have to serve the app locally (with Serve for example). Then you have to tell Ngrok where it has to look.
+If you used default settings with Serve, the address is http://localhost:5000.
+
 ``` bash
 npm install -g ngrok
 
-ngrok http 8080
+ngrok http 5000
 ```
+**Important** : In order to see the service worker at work be sure to use the HTTPS link given by Ngrok.
+
 -------------
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
