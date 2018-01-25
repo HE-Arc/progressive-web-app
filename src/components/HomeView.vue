@@ -1,24 +1,27 @@
 <template>
   <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--3-col mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
-    <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
+    <div v-if="Object.keys(connectionsSorted).length > 0" class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
 
       <div class="mdl-cell mdl-cell--12-col">
         <h1>Your favorite routes</h1>
       </div>
 
       <div class="mdl-cell mdl-cell--12-col">
-        <div v-if="Object.keys(connectionsSorted).length > 0" class="mdl-card main-card">
+        <div class="mdl-card main-card">
           <div class="mdl-card__supporting-text">
-
+            <!-- Boucle principale sur les villes de départ - 1er etage -->
             <div v-for="(arrival_list, departure_location) in connectionsSorted">
+              <!-- Boucle sur les villes d'arrivée - 2eme etage -->
               <div v-for="(connection_list, arrival_location) in arrival_list"  class="mdl-list">
-
+                <!-- Séparaison entre les accordéons -->
                 <div class="mdl-list__item title-accordion mdl-button mdl-js-button">
                   <span><b>DE </b> {{ departure_location }} <b> A </b> {{ arrival_location }}</span>
                 </div>
+                <!-- Boucle sur les trajets - Feuilles -->
                 <div v-for="connection in connection_list" >
                   <div v-bind:id="connection.id" class="connection mdl-list__item mdl-button mdl-js-button  mdl-js-ripple-effect accordion">
+                    <!-- Titre de l'accordéon -->
                     <span class="connection-time">{{ connection.departure}} - {{ connection.arrival }}</span>
                     <span class="stamp update-stamp" v-if="Math.abs(calcTimeBetweenLastUpdateMethodCallAndLastConnectionUpdate(connection)) < 1">
                       <i class="material-icons">check_circle</i>
@@ -29,6 +32,7 @@
                     </span>
                     <i class="material-icons mdl-accordion__icon">expand_more</i>
                   </div>
+                  <!-- Contenu de l'accordeon -->
                   <div class="panel">
                     <div class="toolbar-section">
                       <button type="button" @click="remove(connection)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
@@ -38,7 +42,9 @@
                     <!-- <p>From : <b>{{connection.all_others_info.from.location.name}}</b> at <b>{{getHoursMinutes(connection.all_others_info.from.departure)}}</b> in <b>platform {{connection.all_others_info.from.platform}}</b></p>
                     <p>To : <b>{{connection.all_others_info.to.location.name}}</b> at <b>{{getHoursMinutes(connection.all_others_info.to.arrival)}}</b> in <b>platform {{connection.all_others_info.to.platform}}</b></p> -->
                     <div class="travel-route">
+                      <!-- Boucle sur les étapes du trajet -->
                       <ul v-for="(section, index) in connection.all_others_info.sections" class="mdl-list travel-transfer-list">
+                        <!-- Départ de l'étape -->
                         <li  class="mdl-list__item mdl-list__item--two-line">
                           <span class="mdl-list__item-primary-content">
                             <i class="material-icons mdl-list__item-avatar">train</i>
@@ -53,6 +59,7 @@
                             </span>
                           </span>
                         </li>
+                        <!-- Arrivée de l'étape -->
                         <li  class="mdl-list__item mdl-list__item--two-line">
                           <span class="mdl-list__item-primary-content">
                             <i class="material-icons mdl-list__item-avatar">arrow_forward</i>
@@ -75,20 +82,20 @@
             </div>
           </div>
         </div>
-        <div v-else>
-          <div class="demo-card-wide mdl-card mdl-shadow--2dp">
-            <div class="mdl-card__title">
-              <h2 class="mdl-card__title-text">Welcome to NextStop</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
-              You have currently no favourite routes, you can try to add some.
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-              <router-link to="/add" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                Get Started
-              </router-link>
-            </div>
-          </div>
+      </div>
+    </div>
+    <div v-else class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
+      <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">Welcome to NextStop</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          You have currently no favourite routes, you can try to add some.
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+          <router-link to="/add" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            Get Started
+          </router-link>
         </div>
       </div>
     </div>

@@ -66,13 +66,15 @@
       <div class="mdl-cell mdl-cell--12-col toolbar-section">
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="submitConnection" type="button" @click="onConnectionSubmit" name="submit"><i class="material-icons">add</i> Add to favorites</button>
       </div>
+      <!--
       <pre v-if="preContent" :style="preStyle">
         <b>Selected Data:</b>
         {{ preContent }}
       </pre>
+      -->
     </div>
   </transition>
-
+  <div style="margin-top:450px" id="results" name="results" class="results"></div>
 </div>
 </div>
 </template>
@@ -149,7 +151,7 @@ export default {
     initUI () {
       $('#location_from').after('<label class="mdl-textfield__label" for="location_from">From</label>')
       $('#location_to').after('<label class="mdl-textfield__label" for="location_to">To</label>')
-      $('.autocomplete-input').attr('pattern', '[a-zA-ZñÑáéíóúüçÇ. -]+').after('<span class="mdl-textfield__error">Only letters, dashes and spaces are accepted.</span>')
+      $('.autocomplete-input').attr('pattern', '[a-zA-ZñÑáéíóúüçÇâ. -]+').after('<span class="mdl-textfield__error">Only letters, dashes and spaces are accepted.</span>')
       document.getElementById('location_from').focus()
       $('ul').css('z-index', '1000')
 
@@ -206,6 +208,12 @@ export default {
         $('#connection_results > table').addClass('mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp')
 
         componentHandler.upgradeElement($('#connection_results > table')[0])
+
+        // Scroll to a certain element
+        document.querySelector('.results').scrollIntoView({
+          behavior: 'smooth'
+        })
+        $('#results').hide()
       })
     },
     onReset () {
