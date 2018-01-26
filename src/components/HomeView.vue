@@ -28,13 +28,13 @@
                     </span>
                     <span class="small-text">Updated {{calcTimeFrom(connection)}}</span>
                     <span class="mdl-chip title-chip" v-if="connection.all_others_info.from.delay > 0">
-                      <span class="mdl-chip__text"><i class="material-icons">watch_later</i> {{connection.all_others_info.from.delay}}mn</span>
+                      <span class="mdl-chip__text"><i class="material-icons">watch_later</i><span class="late_text_indication">{{connection.all_others_info.from.delay}}mn</span></span>
                     </span>
                     <i class="material-icons mdl-accordion__icon">expand_more</i>
                   </div>
                   <!-- Contenu de l'accordeon -->
                   <div class="panel">
-                    <div class="toolbar-section">
+                    <div class="toolbar-section remove-button">
                       <button type="button" @click="remove(connection)" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
                         <i class="material-icons">delete</i>
                       </button>
@@ -262,6 +262,37 @@ export default {
 </script>
 
 <style scoped>
+
+/* SMARTPHONE ADJUSTEMENTS */
+@media screen and (max-width: 479px) {
+  .remove-button.toolbar-section{
+    float:none;
+  }
+
+  .late_text_indication{
+    display: none;
+  }
+
+  .connection .mdl-chip__text .material-icons{
+    padding-right: 0px;
+  }
+
+  .mdl-list .mdl-list__item{
+    overflow: initial;
+  }
+
+  .mdl-list div.panel.show{
+    padding: 15px 10px;
+  }
+
+  .connection.accordion .mdl-accordion__icon{
+    position: initial;
+  }
+
+  .connection .connection-time{
+    margin-right: 0px;
+  }
+}
 
 .title-chip{
   margin-left: 5px;
